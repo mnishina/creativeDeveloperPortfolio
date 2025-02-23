@@ -3,7 +3,7 @@ import { projects } from "~/db";
 ---
 
 <section class="mt-24">
-  <div>{projects.length} Projects</div>
+  <h2>{projects.length} Projects</h2>
   <ul class="mt-4">
     {
       projects.map(({ projectYear, projectName, projectURL }) => {
