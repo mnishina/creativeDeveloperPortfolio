@@ -1,0 +1,25 @@
+---
+import { projects } from "~/db";
+---
+
+<section class="mt-24">
+  <div>{projects.length} Projects</div>
+  <ul class="mt-4">
+    {
+      projects.map(({ projectYear, projectName, projectURL }) => {
+        return (
+          <li class="border-t border-dashed border-zinc-200 last:border-b">
+            <a
+              href={projectURL}
+              target="_blank"
+              class="grid grid-cols-12 gap-8 py-8"
+            >
+              <span class="col-start-1">{projectYear}</span>
+              <strong class="col-start-2 col-span-full">{projectName}</strong>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>
