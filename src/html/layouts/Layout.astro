@@ -1,15 +1,20 @@
 ---
+import { meta } from "~/db";
+
 import "@fontsource/fusion-pixel-12px-monospaced-jp";
 import "~/styles/global.css";
 ---
 
-<!doctype html>
+<script>
+  import "~scripts/index";
+</script>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>aaaa</title>
+    <title>{meta.SITE_ORNER} {meta.ORNER_JOB} {meta.SITE_NAME}</title>
   </head>
   <body class="font-mono text-12 font-normal">
     <slot />
