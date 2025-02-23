@@ -7,7 +7,7 @@
     "paths": {
       "~/*": ["./src/*"],
       "~html/*": ["./src/html/*"],
-      "~script/*": ["./src/script/*"]
-    },
+      "~scripts/*": ["./src/scripts/*"]
+    }
   }
 }
