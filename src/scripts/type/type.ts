@@ -1,11 +1,15 @@
 import ShuffleText from "shuffle-text";
 
-interface Opening {
-  init: () => void;
+interface Shuffle {
+  opening: () => void;
   textShuffleTarget: NodeListOf<Element>;
   shuffleTexts: ShuffleText[];
   shuffleTextDuration: number;
   runningClass: string;
+  rollover: {
+    duration: number;
+    states: Map<Element, string>;
+  };
 }
 
-export type { Opening };
+export type { Shuffle };

@@ -1,7 +1,7 @@
-import opening from "~scripts/opening";
+import shuffle from "~scripts/shuffle";
 
 init();
 
 function init() {
-  opening.init();
+  shuffle.opening();
 }
