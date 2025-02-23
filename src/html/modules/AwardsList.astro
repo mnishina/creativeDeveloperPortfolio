@@ -3,7 +3,7 @@ import { awards } from "~/db";
 ---
 
 <section class="mt-24">
-  <h2>{awards.length} Awards</h2>
+  <h2 data-textShuffleTarget>{awards.length} Awards</h2>
   <ul class="mt-6">
     {
       awards.map(({ project, name, at, url }) => {
@@ -14,9 +14,15 @@ import { awards } from "~/db";
               target="_blank"
               class="grid grid-cols-12 gap-gridGap py-6"
             >
-              <span class="col-start-1 col-span-2">{name}</span>
-              <span class="col-start-3 col-span-2">{at}</span>
-              <span class="col-start-5 col-span-2">{project}</span>
+              <span class="col-start-1 col-span-2" data-textShuffleTarget>
+                {name}
+              </span>
+              <span class="col-start-3 col-span-2" data-textShuffleTarget>
+                {at}
+              </span>
+              <span class="col-start-5 col-span-2" data-textShuffleTarget>
+                {project}
+              </span>
             </a>
           </li>
         );

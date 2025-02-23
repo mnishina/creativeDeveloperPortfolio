@@ -3,7 +3,7 @@ import { projects } from "~/db";
 ---
 
 <section class="mt-24">
-  <h2>{projects.length} Projects</h2>
+  <h2 data-textShuffleTarget>{projects.length} Projects</h2>
   <ul class="mt-6">
     {
       projects.map(({ projectYear, projectName, projectURL }) => {
@@ -14,9 +14,15 @@ import { projects } from "~/db";
               target="_blank"
               class="grid grid-cols-12 gap-gridGap py-8"
             >
-              <span class="col-start-1 col-span-2">{projectYear}</span>
-              <span class="col-start-3 col-span-2">{projectName}</span>
-              <span class="col-start-5 col-span-full">{projectURL}</span>
+              <span class="col-start-1 col-span-2" data-textShuffleTarget>
+                {projectYear}
+              </span>
+              <span class="col-start-3 col-span-2" data-textShuffleTarget>
+                {projectName}
+              </span>
+              <span class="col-start-5 col-span-full" data-textShuffleTarget>
+                {projectURL}
+              </span>
             </a>
           </li>
         );

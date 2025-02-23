@@ -1,7 +1,7 @@
 const meta = {
   SITE_NAME: "Portfolio v.01",
   SITE_ORNER: "Mitsunori Nishina",
-  ORNER_JOB: "Web Designer / Creative Developer",
+  ORNER_JOB: "Creative Developer",
 };
 
 const projects = [
