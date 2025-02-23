@@ -1,9 +1,15 @@
 const meta = {
+  SITE_NAME: "Portfolio v.01",
   SITE_ORNER: "Mitsunori Nishina",
   ORNER_JOB: "Web Designer / Creative Developer",
 };
 
 const projects = [
+  {
+    projectYear: "2025",
+    projectName: meta.SITE_NAME,
+    projectURL: "https://cdpf.vercel.app/",
+  },
   {
     projectYear: "2025",
     projectName: "RAMEN2024",

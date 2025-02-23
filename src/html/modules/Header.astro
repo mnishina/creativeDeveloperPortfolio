@@ -2,7 +2,10 @@
 import { meta } from "~/db";
 ---
 
-<header class="grid grid-cols-12 gap-8">
-  <h1 class="col-start-1 col-span-2">{meta.SITE_ORNER}</h1>
-  <div class="col-start-3 col-span-full">{meta.ORNER_JOB}</div>
+<header class="grid grid-cols-12 gap-gridGap">
+  <h1 class="col-start-1 row-start-1 col-span-2">{meta.SITE_ORNER}</h1>
+  <div class="col-start-3 row-start-1 col-span-3">{meta.ORNER_JOB}</div>
+  <div class="col-span-full row-start-1 text-zinc-400 text-right pr-gridGap">
+    {meta.SITE_NAME}
+  </div>
 </header>

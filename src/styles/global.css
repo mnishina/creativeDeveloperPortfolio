@@ -4,4 +4,5 @@
   --font-mono: "Fusion Pixel 12px Monospaced JP", sans-serif;
   --text-10: 10px;
   --text-12: 12px;
+  --spacing-gridGap: calc(var(--spacing) * 8);
 }

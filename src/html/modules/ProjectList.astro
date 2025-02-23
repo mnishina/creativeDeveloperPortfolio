@@ -4,7 +4,7 @@ import { projects } from "~/db";
 
 <section class="mt-24">
   <h2>{projects.length} Projects</h2>
-  <ul class="mt-4">
+  <ul class="mt-6">
     {
       projects.map(({ projectYear, projectName, projectURL }) => {
         return (
@@ -12,10 +12,11 @@ import { projects } from "~/db";
             <a
               href={projectURL}
               target="_blank"
-              class="grid grid-cols-12 gap-8 py-8"
+              class="grid grid-cols-12 gap-gridGap py-8"
             >
-              <span class="col-start-1">{projectYear}</span>
-              <strong class="col-start-2 col-span-full">{projectName}</strong>
+              <span class="col-start-1 col-span-2">{projectYear}</span>
+              <span class="col-start-3 col-span-2">{projectName}</span>
+              <span class="col-start-5 col-span-full">{projectURL}</span>
             </a>
           </li>
         );
