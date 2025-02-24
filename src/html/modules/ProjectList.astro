@@ -1,4 +1,6 @@
 ---
+import ListImage from "~html/components/ListImage.astro";
+
 import { projects } from "~/db";
 ---
 
@@ -24,7 +26,7 @@ import { projects } from "~/db";
               <span class="col-start-5 col-span-full" data-textShuffleTarget>
                 {projectURL}
               </span>
-              <img src={projectImage} alt={projectName} class="hidden" />
+              <ListImage url={projectImage} alt={projectName} />
             </a>
           </li>
         );
