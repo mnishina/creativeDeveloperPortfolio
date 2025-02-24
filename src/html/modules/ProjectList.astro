@@ -6,7 +6,7 @@ import { projects } from "~/db";
   <h2 data-textShuffleTarget>{projects.length} Projects</h2>
   <ul class="mt-6">
     {
-      projects.map(({ projectYear, projectName, projectURL }) => {
+      projects.map(({ projectYear, projectName, projectURL, projectImage }) => {
         return (
           <li class="border-t border-dashed border-zinc-200 last:border-b">
             <a
@@ -24,6 +24,7 @@ import { projects } from "~/db";
               <span class="col-start-5 col-span-full" data-textShuffleTarget>
                 {projectURL}
               </span>
+              <img src={projectImage} alt={projectName} class="hidden" />
             </a>
           </li>
         );
