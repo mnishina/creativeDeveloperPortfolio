@@ -3,8 +3,8 @@ import shuffle from "~scripts/shuffle";
 
 init();
 
-function init() {
-  loader.loadAllImage();
+async function init() {
+  await loader.loadAllImage();
 
   shuffle.opening();
 }

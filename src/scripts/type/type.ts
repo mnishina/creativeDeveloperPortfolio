@@ -1,4 +1,13 @@
+import { LoadingManager, TextureLoader, Texture } from "three";
 import ShuffleText from "shuffle-text";
+
+interface Loader {
+  init: () => void;
+  loadAllImage: () => Promise<void>;
+  textureCashe: Map<string, Texture>;
+  textureLoader: null | TextureLoader;
+  loadingManager: LoadingManager;
+}
 
 interface Shuffle {
   opening: () => void;
@@ -12,4 +21,4 @@ interface Shuffle {
   };
 }
 
-export type { Shuffle };
+export type { Loader, Shuffle };
