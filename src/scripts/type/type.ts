@@ -1,6 +1,19 @@
 import { LoadingManager, TextureLoader, Texture } from "three";
 import ShuffleText from "shuffle-text";
 
+interface App {
+  init: ($canvas: HTMLCanvasElement) => void;
+  $canvas: null | HTMLCanvasElement;
+}
+
+interface Composition {
+  init: ($canvas: HTMLCanvasElement) => void;
+  sizes: {
+    $canvasWidth: null | number;
+    $canvasHeight: null | number;
+  };
+}
+
 interface Loader {
   init: () => void;
   loadAllImage: () => Promise<void>;
@@ -21,4 +34,4 @@ interface Shuffle {
   };
 }
 
-export type { Loader, Shuffle };
+export type { App, Composition, Loader, Shuffle };
