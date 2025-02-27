@@ -67,6 +67,14 @@ const awards = [
     image: "/bestInnovation_ramen2024.avif",
   },
   {
+    year: "2025",
+    project: "RAMEN2024",
+    name: "Nominee",
+    at: "Awwwards",
+    url: "https://www.awwwards.com/sites/ramen2024",
+    image: "/bestInnovation_ramen2024.avif",
+  },
+  {
     year: "2024",
     project: "RAMEN2023",
     name: "STAR",
