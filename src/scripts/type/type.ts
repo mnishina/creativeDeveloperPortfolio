@@ -1,4 +1,14 @@
-import { LoadingManager, TextureLoader, Texture } from "three";
+import {
+  LoadingManager,
+  TextureLoader,
+  Texture,
+  Scene,
+  WebGLRenderer,
+  PerspectiveCamera,
+  ShaderMaterial,
+  PlaneGeometry,
+  Mesh,
+} from "three";
 import ShuffleText from "shuffle-text";
 
 interface App {
@@ -8,9 +18,23 @@ interface App {
 
 interface Composition {
   init: ($canvas: HTMLCanvasElement) => void;
+  tick: () => void;
+  scene: Scene;
+  renderer: null | WebGLRenderer;
+  camera: null | PerspectiveCamera;
+  material: null | ShaderMaterial;
+  geometry: null | PlaneGeometry;
+  mesh: null | Mesh;
   sizes: {
     $canvasWidth: null | number;
     $canvasHeight: null | number;
+    dpr: number;
+  };
+  cameraData: {
+    fov: number;
+    aspect: number;
+    near: number;
+    far: number;
   };
 }
 

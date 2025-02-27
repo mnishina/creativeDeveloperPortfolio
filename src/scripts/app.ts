@@ -19,5 +19,7 @@ async function init() {
 
   await loader.loadAllImage();
 
+  composition.tick();
+
   shuffle.opening();
 }
