@@ -8,10 +8,10 @@ import {
   PlaneGeometry,
   Mesh,
 } from "three";
+import { getCanvasInfo } from "~scripts/common/util";
 
 const composition: Composition = {
   init,
-  tick,
   scene: new Scene(),
   renderer: null,
   camera: null,
@@ -22,8 +22,9 @@ const composition: Composition = {
     $canvasWidth: null,
     $canvasHeight: null,
     dpr: Math.min(window.devicePixelRatio, 2),
+    segmentAmount: 32,
   },
-  cameraData: {
+  cameraInfo: {
     fov: 75,
     aspect: 0,
     near: 0.1,
@@ -32,9 +33,9 @@ const composition: Composition = {
 };
 
 function init($canvas: HTMLCanvasElement) {
-  const { width, height } = $canvas.getBoundingClientRect();
-  composition.sizes.$canvasWidth = width;
-  composition.sizes.$canvasHeight = height;
+  const { $canvasWidth, $canvasHeight, $canvasAspect } = getCanvasInfo($canvas);
+  composition.sizes.$canvasWidth = $canvasWidth;
+  composition.sizes.$canvasHeight = $canvasHeight;
 
   composition.renderer = new WebGLRenderer({
     canvas: $canvas,
@@ -47,35 +48,25 @@ function init($canvas: HTMLCanvasElement) {
     false,
   );
 
+  composition.cameraInfo.aspect = $canvasAspect;
   composition.camera = new PerspectiveCamera(
-    composition.cameraData.fov,
-    composition.sizes.$canvasWidth / composition.sizes.$canvasHeight,
-    composition.cameraData.near,
-    composition.cameraData.far,
+    composition.cameraInfo.fov,
+    composition.cameraInfo.aspect,
+    composition.cameraInfo.near,
+    composition.cameraInfo.far,
   );
   composition.camera.position.z = 5;
 
   composition.material = new ShaderMaterial({ wireframe: true });
-  composition.geometry = new PlaneGeometry(1, 1, 1, 1);
+  composition.geometry = new PlaneGeometry(
+    3,
+    3,
+    composition.sizes.segmentAmount,
+    composition.sizes.segmentAmount,
+  );
   composition.mesh = new Mesh(composition.geometry, composition.material);
 
   composition.scene.add(composition.mesh);
-}
-
-function tick() {
-  if (composition.renderer && composition.camera) {
-    composition.renderer.render(composition.scene, composition.camera);
-  }
-
-  if (composition.mesh) {
-    composition.mesh.rotation.x += 0.01;
-    composition.mesh.rotation.y += 0.0015;
-    composition.mesh.rotation.z += 0.015;
-  }
-
-  requestAnimationFrame(() => {
-    tick();
-  });
 }
 
 export default composition;

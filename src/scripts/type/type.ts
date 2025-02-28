@@ -13,12 +13,12 @@ import ShuffleText from "shuffle-text";
 
 interface App {
   init: ($canvas: HTMLCanvasElement) => void;
+  tick: () => void;
   $canvas: null | HTMLCanvasElement;
 }
 
 interface Composition {
   init: ($canvas: HTMLCanvasElement) => void;
-  tick: () => void;
   scene: Scene;
   renderer: null | WebGLRenderer;
   camera: null | PerspectiveCamera;
@@ -29,8 +29,9 @@ interface Composition {
     $canvasWidth: null | number;
     $canvasHeight: null | number;
     dpr: number;
+    segmentAmount: number;
   };
-  cameraData: {
+  cameraInfo: {
     fov: number;
     aspect: number;
     near: number;

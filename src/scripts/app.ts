@@ -1,25 +1,31 @@
 import type { App } from "~scripts/type/type";
 
-import loader from "~scripts/common/loader";
 import composition from "~scripts/common/composition";
-import shuffle from "~scripts/shuffle";
 
 const app: App = {
   init,
+  tick,
   $canvas: null,
 };
 
-init();
-async function init() {
-  app.$canvas = document.querySelector('[data-element="canvas"]');
+function init($canvas: HTMLCanvasElement) {
+  app.$canvas = $canvas;
+}
 
-  if (app.$canvas) {
-    composition.init(app.$canvas);
+function tick() {
+  if (composition.renderer && composition.camera) {
+    composition.renderer.render(composition.scene, composition.camera);
   }
 
-  await loader.loadAllImage();
+  if (composition.mesh) {
+    composition.mesh.rotation.x += 0.01;
+    composition.mesh.rotation.y += 0.0015;
+    composition.mesh.rotation.z += 0.015;
+  }
 
-  composition.tick();
-
-  shuffle.opening();
+  requestAnimationFrame(() => {
+    tick();
+  });
 }
+
+export default app;
