@@ -64,6 +64,11 @@ function init($canvas: HTMLCanvasElement) {
     wireframe: true,
     vertexShader,
     fragmentShader,
+    uniforms: {
+      uProgress: { value: 0 },
+      uAlpha: { value: 1 },
+      uTime: { value: 0 },
+    },
   });
   composition.geometry = new PlaneGeometry(
     3,
