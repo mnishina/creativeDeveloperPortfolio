@@ -4,16 +4,16 @@ import shuffle from "~scripts/shuffle";
 
 import app from "~scripts/app";
 
+await loader.loadAllImage();
+
 const $canvas = document.querySelector(
   '[data-element="canvas"]',
 ) as HTMLCanvasElement;
 
 composition.init($canvas);
-
-await loader.loadAllImage();
+composition.createMesh();
 
 app.init($canvas);
-
 app.tick();
 
 shuffle.opening();

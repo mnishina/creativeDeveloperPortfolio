@@ -12,12 +12,12 @@ import { getCanvasInfo } from "~scripts/common/util";
 
 const composition: Composition = {
   init,
+  createMesh,
   scene: new Scene(),
   renderer: null,
   camera: null,
   material: null,
   geometry: null,
-  mesh: null,
   sizes: {
     $canvasWidth: null,
     $canvasHeight: null,
@@ -64,9 +64,16 @@ function init($canvas: HTMLCanvasElement) {
     composition.sizes.segmentAmount,
     composition.sizes.segmentAmount,
   );
-  composition.mesh = new Mesh(composition.geometry, composition.material);
+}
 
-  composition.scene.add(composition.mesh);
+function createMesh() {
+  if (composition.geometry && composition.material) {
+    const geometry = composition.geometry;
+    const material = composition.material?.clone();
+    const mesh = new Mesh(geometry, material);
+
+    composition.scene.add(mesh);
+  }
 }
 
 export default composition;

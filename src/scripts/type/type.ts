@@ -19,12 +19,12 @@ interface App {
 
 interface Composition {
   init: ($canvas: HTMLCanvasElement) => void;
+  createMesh: () => void;
   scene: Scene;
   renderer: null | WebGLRenderer;
   camera: null | PerspectiveCamera;
   material: null | ShaderMaterial;
   geometry: null | PlaneGeometry;
-  mesh: null | Mesh;
   sizes: {
     $canvasWidth: null | number;
     $canvasHeight: null | number;

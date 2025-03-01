@@ -17,11 +17,11 @@ function tick() {
     composition.renderer.render(composition.scene, composition.camera);
   }
 
-  if (composition.mesh) {
-    composition.mesh.rotation.x += 0.01;
-    composition.mesh.rotation.y += 0.0015;
-    composition.mesh.rotation.z += 0.015;
-  }
+  // if (composition.mesh) {
+  //   composition.mesh.rotation.x += 0.01;
+  //   composition.mesh.rotation.y += 0.0015;
+  //   composition.mesh.rotation.z += 0.015;
+  // }
 
   requestAnimationFrame(() => {
     tick();
