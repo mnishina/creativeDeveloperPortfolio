@@ -1,19 +1,26 @@
+import type { DOM } from "~scripts/type/type";
+
 import loader from "~scripts/common/loader";
 import composition from "~scripts/common/composition";
 import shuffle from "~scripts/shuffle";
 
 import app from "~scripts/app";
 
-await loader.loadAllImage();
+const $: DOM = {
+  canvas: document.querySelector('[data-element="canvas"]'),
+  images: document.querySelectorAll("[data-element='image']"),
+};
 
-const $canvas = document.querySelector(
-  '[data-element="canvas"]',
-) as HTMLCanvasElement;
+await loader.loadAllImage($.images);
 
-composition.init($canvas);
-composition.createMesh();
+const textureCache = loader.textureCashe;
 
-app.init($canvas);
-app.tick();
+if ($.canvas) {
+  composition.init($.canvas);
 
-shuffle.opening();
+  app.init($.canvas);
+  app.createMesh();
+  app.tick();
+
+  shuffle.opening();
+}

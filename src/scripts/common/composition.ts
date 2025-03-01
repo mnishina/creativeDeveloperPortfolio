@@ -1,12 +1,10 @@
 import type { Composition } from "~scripts/type/type";
 
 import {
-  Scene,
   WebGLRenderer,
   PerspectiveCamera,
   ShaderMaterial,
   PlaneGeometry,
-  Mesh,
 } from "three";
 import { getCanvasInfo } from "~scripts/common/util";
 
@@ -15,8 +13,6 @@ import fragmentShader from "~scripts/shader/fragmentShader.glsl";
 
 const composition: Composition = {
   init,
-  createMesh,
-  scene: new Scene(),
   renderer: null,
   camera: null,
   material: null,
@@ -76,16 +72,6 @@ function init($canvas: HTMLCanvasElement) {
     composition.sizes.segmentAmount,
     composition.sizes.segmentAmount,
   );
-}
-
-function createMesh() {
-  if (composition.geometry && composition.material) {
-    const geometry = composition.geometry;
-    const material = composition.material?.clone();
-    const mesh = new Mesh(geometry, material);
-
-    composition.scene.add(mesh);
-  }
 }
 
 export default composition;

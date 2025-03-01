@@ -11,16 +11,22 @@ import {
 } from "three";
 import ShuffleText from "shuffle-text";
 
+interface DOM {
+  canvas: HTMLCanvasElement | null;
+  images: NodeListOf<Element>;
+}
+
 interface App {
   init: ($canvas: HTMLCanvasElement) => void;
+  createMesh: () => void;
   tick: () => void;
+  scene: Scene;
   $canvas: null | HTMLCanvasElement;
+  meshes: null;
 }
 
 interface Composition {
   init: ($canvas: HTMLCanvasElement) => void;
-  createMesh: () => void;
-  scene: Scene;
   renderer: null | WebGLRenderer;
   camera: null | PerspectiveCamera;
   material: null | ShaderMaterial;
@@ -41,7 +47,7 @@ interface Composition {
 
 interface Loader {
   init: () => void;
-  loadAllImage: () => Promise<void>;
+  loadAllImage: ($images: NodeListOf<Element>) => Promise<void>;
   textureCashe: Map<string, Texture>;
   textureLoader: null | TextureLoader;
   loadingManager: LoadingManager;
@@ -59,4 +65,4 @@ interface Shuffle {
   };
 }
 
-export type { App, Composition, Loader, Shuffle };
+export type { DOM, App, Composition, Loader, Shuffle };

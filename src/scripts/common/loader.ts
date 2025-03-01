@@ -12,11 +12,10 @@ const loader: Loader = {
 
 function init() {}
 
-async function loadAllImage() {
+async function loadAllImage($images: NodeListOf<Element>) {
   loader.textureLoader = new TextureLoader(loader.loadingManager);
 
-  const $image = document.querySelectorAll("[data-element='image']");
-  for (const el of $image) {
+  for (const el of $images) {
     const url = el.getAttribute("src");
 
     if (url) {
