@@ -10,6 +10,9 @@ import {
 } from "three";
 import { getCanvasInfo } from "~scripts/common/util";
 
+import vertexShader from "~scripts/shader/vertexShader.glsl";
+import fragmentShader from "~scripts/shader/fragmentShader.glsl";
+
 const composition: Composition = {
   init,
   createMesh,
@@ -57,7 +60,11 @@ function init($canvas: HTMLCanvasElement) {
   );
   composition.camera.position.z = 5;
 
-  composition.material = new ShaderMaterial({ wireframe: true });
+  composition.material = new ShaderMaterial({
+    wireframe: true,
+    vertexShader,
+    fragmentShader,
+  });
   composition.geometry = new PlaneGeometry(
     3,
     3,
