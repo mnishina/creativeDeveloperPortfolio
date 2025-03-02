@@ -1,6 +1,7 @@
 import type { Composition } from "~scripts/type/type";
 
 import {
+  Scene,
   WebGLRenderer,
   PerspectiveCamera,
   ShaderMaterial,
@@ -13,6 +14,7 @@ import fragmentShader from "~scripts/shader/fragmentShader.glsl";
 
 const composition: Composition = {
   init,
+  scene: new Scene(),
   renderer: null,
   camera: null,
   material: null,
@@ -57,10 +59,11 @@ function init($canvas: HTMLCanvasElement) {
   composition.camera.position.z = 5;
 
   composition.material = new ShaderMaterial({
-    wireframe: true,
+    // wireframe: true,
     vertexShader,
     fragmentShader,
     uniforms: {
+      uTexture: { value: null },
       uProgress: { value: 0 },
       uAlpha: { value: 1 },
       uTime: { value: 0 },

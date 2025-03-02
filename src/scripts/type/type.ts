@@ -16,17 +16,22 @@ interface DOM {
   images: NodeListOf<Element>;
 }
 
+interface CreateMesh {
+  $images: NodeListOf<Element>;
+  textureCache: Map<string, Texture>;
+}
+
 interface App {
   init: ($canvas: HTMLCanvasElement) => void;
-  createMesh: () => void;
+  createMesh: (createMesh: CreateMesh) => Promise<unknown>;
   tick: () => void;
-  scene: Scene;
   $canvas: null | HTMLCanvasElement;
   meshes: null;
 }
 
 interface Composition {
   init: ($canvas: HTMLCanvasElement) => void;
+  scene: Scene;
   renderer: null | WebGLRenderer;
   camera: null | PerspectiveCamera;
   material: null | ShaderMaterial;
@@ -65,4 +70,4 @@ interface Shuffle {
   };
 }
 
-export type { DOM, App, Composition, Loader, Shuffle };
+export type { DOM, CreateMesh, App, Composition, Loader, Shuffle };

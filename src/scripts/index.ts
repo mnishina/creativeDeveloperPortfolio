@@ -19,7 +19,7 @@ if ($.canvas) {
   composition.init($.canvas);
 
   app.init($.canvas);
-  app.createMesh();
+  await app.createMesh({ $images: $.images, textureCache });
   app.tick();
 
   shuffle.opening();
