@@ -50,8 +50,6 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
       return o;
     });
 
-    console.log(aaa);
-
     resolve(aaa);
   });
 }
