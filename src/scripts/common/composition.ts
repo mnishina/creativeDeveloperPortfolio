@@ -7,7 +7,7 @@ import {
   ShaderMaterial,
   PlaneGeometry,
 } from "three";
-import { getCanvasInfo } from "~scripts/common/util";
+import { getCanvasInfo, getCameraFOV } from "~scripts/common/util";
 
 import vertexShader from "~scripts/shader/vertexShader.glsl";
 import fragmentShader from "~scripts/shader/fragmentShader.glsl";
@@ -26,7 +26,7 @@ const composition: Composition = {
     segmentAmount: 32,
   },
   cameraInfo: {
-    fov: 75,
+    fov: 0,
     aspect: 0,
     near: 0.1,
     far: 1000,
@@ -49,6 +49,10 @@ function init($canvas: HTMLCanvasElement) {
     false,
   );
 
+  composition.cameraInfo.fov = getCameraFOV(
+    $canvasHeight,
+    composition.cameraInfo.far,
+  );
   composition.cameraInfo.aspect = $canvasAspect;
   composition.camera = new PerspectiveCamera(
     composition.cameraInfo.fov,
@@ -56,7 +60,7 @@ function init($canvas: HTMLCanvasElement) {
     composition.cameraInfo.near,
     composition.cameraInfo.far,
   );
-  composition.camera.position.z = 5;
+  composition.camera.position.z = composition.cameraInfo.far;
 
   composition.material = new ShaderMaterial({
     // wireframe: true,
@@ -70,8 +74,8 @@ function init($canvas: HTMLCanvasElement) {
     },
   });
   composition.geometry = new PlaneGeometry(
-    3,
-    3,
+    1,
+    1,
     composition.sizes.segmentAmount,
     composition.sizes.segmentAmount,
   );

@@ -4,6 +4,8 @@ import { Mesh } from "three";
 
 import composition from "~scripts/common/composition";
 
+import { getImageBounds } from "~scripts/common/util";
+
 const app: App = {
   init,
   createMesh,
@@ -21,6 +23,9 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
     const aaa = [...$images].map((image) => {
       if (!composition.geometry || !composition.material) return;
 
+      const { $imageRect, $imageWidth, $imageHeight, $imageX, $imageY } =
+        getImageBounds(image);
+
       const imagePath = image.getAttribute("src");
       const uTexture = textureCache.get(imagePath!);
 
@@ -29,10 +34,14 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
       material.uniforms.uTexture.value = uTexture;
 
       const mesh = new Mesh(geometry, material);
+      mesh.scale.set($imageWidth, $imageHeight, 0);
 
       composition.scene.add(mesh);
 
       const o = {
+        $imageRect,
+        $imageX,
+        $imageY,
         geometry,
         material,
         mesh,
