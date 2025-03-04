@@ -29,4 +29,15 @@ function getImageBounds($image: Element) {
   };
 }
 
-export { getCanvasInfo, getCameraFOV, getImageBounds };
+function getImagePosition($canvas: HTMLCanvasElement, $image: Element) {
+  const { $canvasWidth, $canvasHeight } = getCanvasInfo($canvas);
+  const { $imageWidth, $imageHeight, $imageX, $imageY } =
+    getImageBounds($image);
+
+  const meshX = $imageX + $imageWidth / 2 - $canvasWidth / 2;
+  const meshY = 0;
+
+  return { meshX, meshY };
+}
+
+export { getCanvasInfo, getCameraFOV, getImageBounds, getImagePosition };
