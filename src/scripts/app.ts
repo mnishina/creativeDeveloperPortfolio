@@ -23,10 +23,10 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
     const aaa = [...$images].map((image) => {
       if (!composition.geometry || !composition.material) return;
 
-      const { $imageRect, $imageWidth, $imageHeight, $imageX, $imageY } =
+      const { $imageRect, $imageWidth, $imageHeight, $imageLeft, $imageTop } =
         getImageBounds(image);
 
-      const { meshX, meshY } = getImagePosition(app.$canvas!, image);
+      const { meshLeft, meshTop } = getImagePosition(app.$canvas!, image);
 
       const imagePath = image.getAttribute("src");
       const uTexture = textureCache.get(imagePath!);
@@ -36,16 +36,16 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
       material.uniforms.uTexture.value = uTexture;
 
       const mesh = new Mesh(geometry, material);
-      mesh.position.x = meshX;
-      mesh.position.y = meshY;
+      mesh.position.x = meshLeft;
+      mesh.position.y = meshTop;
       mesh.scale.set($imageWidth, $imageHeight, 0);
 
       composition.scene.add(mesh);
 
       const o = {
         $imageRect,
-        $imageX,
-        $imageY,
+        $imageLeft,
+        $imageTop,
         geometry,
         material,
         mesh,

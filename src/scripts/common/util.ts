@@ -25,19 +25,19 @@ function getImageBounds($image: Element) {
     $imageWidth: $imageRect.width,
     $imageHeight: $imageRect.height,
     $imageLeft: $imageRect.left,
-    $imageY: $imageRect.y,
+    $imageTop: $imageRect.top,
   };
 }
 
 function getImagePosition($canvas: HTMLCanvasElement, $image: Element) {
   const { $canvasWidth, $canvasHeight } = getCanvasInfo($canvas);
-  const { $imageWidth, $imageHeight, $imageLeft, $imageY } =
+  const { $imageWidth, $imageHeight, $imageLeft, $imageTop } =
     getImageBounds($image);
 
-  const meshX = $imageLeft + $imageWidth / 2 - $canvasWidth / 2;
-  const meshY = 0;
+  const meshLeft = $imageLeft + $imageWidth / 2 - $canvasWidth / 2;
+  const meshTop = 0;
 
-  return { meshX, meshY };
+  return { meshLeft, meshTop };
 }
 
 export { getCanvasInfo, getCameraFOV, getImageBounds, getImagePosition };
