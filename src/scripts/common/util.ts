@@ -24,17 +24,17 @@ function getImageBounds($image: Element) {
     $imageRect,
     $imageWidth: $imageRect.width,
     $imageHeight: $imageRect.height,
-    $imageX: $imageRect.x,
+    $imageLeft: $imageRect.left,
     $imageY: $imageRect.y,
   };
 }
 
 function getImagePosition($canvas: HTMLCanvasElement, $image: Element) {
   const { $canvasWidth, $canvasHeight } = getCanvasInfo($canvas);
-  const { $imageWidth, $imageHeight, $imageX, $imageY } =
+  const { $imageWidth, $imageHeight, $imageLeft, $imageY } =
     getImageBounds($image);
 
-  const meshX = $imageX + $imageWidth / 2 - $canvasWidth / 2;
+  const meshX = $imageLeft + $imageWidth / 2 - $canvasWidth / 2;
   const meshY = 0;
 
   return { meshX, meshY };
