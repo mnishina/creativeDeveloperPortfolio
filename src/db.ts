@@ -29,6 +29,14 @@ const awards = [
   {
     year: "2025",
     project: "RAMEN2024",
+    name: "Honorable Mention",
+    at: "AWWWARDS",
+    url: "https://www.awwwards.com/sites/ramen2024",
+    image: "/hm-ramen2024.avif",
+  },
+  {
+    year: "2025",
+    project: "RAMEN2024",
     name: "Special Kudos",
     at: "CSS Design Awards",
     url: "https://www.cssdesignawards.com/sites/ramen2024/47087/",
@@ -67,14 +75,6 @@ const awards = [
     image: "/bestInnovation_ramen2024.avif",
   },
   {
-    year: "2025",
-    project: "RAMEN2024",
-    name: "Nominee",
-    at: "Awwwards",
-    url: "https://www.awwwards.com/sites/ramen2024",
-    image: "/bestInnovation_ramen2024.avif",
-  },
-  {
     year: "2024",
     project: "RAMEN2023",
     name: "STAR",
@@ -86,7 +86,7 @@ const awards = [
     year: "2024",
     project: "RAMEN2023",
     name: "Nominee",
-    at: "Awwwards",
+    at: "AWWWARDS",
     url: "https://www.awwwards.com/sites/ramen2023",
     image: "/bestInnovation_ramen2024.avif",
   },
