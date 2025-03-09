@@ -35,7 +35,7 @@ function getImagePosition($canvas: HTMLCanvasElement, $image: Element) {
     getImageBounds($image);
 
   const meshLeft = $imageLeft + $imageWidth / 2 - $canvasWidth / 2;
-  const meshTop = 0;
+  const meshTop = -$imageTop - $imageHeight / 2 + $canvasHeight / 2;
 
   return { meshLeft, meshTop };
 }
