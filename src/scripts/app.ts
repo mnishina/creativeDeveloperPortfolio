@@ -11,7 +11,7 @@ const app: App = {
   createMesh,
   tick,
   $canvas: null,
-  meshes: null,
+  meshes: [],
 };
 
 function init($canvas: HTMLCanvasElement) {
@@ -20,7 +20,7 @@ function init($canvas: HTMLCanvasElement) {
 
 async function createMesh({ $images, textureCache }: CreateMesh) {
   return new Promise((resolve) => {
-    const aaa = [...$images].map((image) => {
+    const meshes = [...$images].map((image) => {
       if (!composition.geometry || !composition.material) return;
 
       const { $imageRect, $imageWidth, $imageHeight, $imageLeft, $imageTop } =
@@ -51,10 +51,14 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
         mesh,
       };
 
+      app.meshes?.push(o);
+
       return o;
     });
 
-    resolve(aaa);
+    console.log(app.meshes);
+
+    resolve(meshes);
   });
 }
 

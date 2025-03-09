@@ -21,12 +21,21 @@ interface CreateMesh {
   textureCache: Map<string, Texture>;
 }
 
+interface Meshes {
+  $imageRect: DOMRect;
+  $imageLeft: number;
+  $imageTop: number;
+  geometry: PlaneGeometry;
+  material: ShaderMaterial;
+  mesh: Mesh;
+}
+
 interface App {
   init: ($canvas: HTMLCanvasElement) => void;
   createMesh: (createMesh: CreateMesh) => Promise<unknown>;
   tick: () => void;
   $canvas: null | HTMLCanvasElement;
-  meshes: null;
+  meshes: null | Meshes[];
 }
 
 interface Composition {
