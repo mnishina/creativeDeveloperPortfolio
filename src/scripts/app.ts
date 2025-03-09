@@ -1,4 +1,4 @@
-import type { App, CreateMesh } from "~scripts/type/type";
+import type { App, CreateMesh, Meshes } from "~scripts/type/type";
 
 import { Mesh } from "three";
 
@@ -9,6 +9,7 @@ import { getImageBounds, getImagePosition } from "~scripts/common/util";
 const app: App = {
   init,
   createMesh,
+  setupEvents,
   tick,
   $canvas: null,
   meshes: [],
@@ -20,15 +21,15 @@ function init($canvas: HTMLCanvasElement) {
 
 async function createMesh({ $images, textureCache }: CreateMesh) {
   return new Promise((resolve) => {
-    const meshes = [...$images].map((image) => {
+    const meshes = [...$images].map(($image) => {
       if (!composition.geometry || !composition.material) return;
 
       const { $imageRect, $imageWidth, $imageHeight, $imageLeft, $imageTop } =
-        getImageBounds(image);
+        getImageBounds($image);
 
-      const { meshLeft, meshTop } = getImagePosition(app.$canvas!, image);
+      const { meshLeft, meshTop } = getImagePosition(app.$canvas!, $image);
 
-      const imagePath = image.getAttribute("src");
+      const imagePath = $image.getAttribute("src");
       const uTexture = textureCache.get(imagePath!);
 
       const geometry = composition.geometry;
@@ -43,6 +44,7 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
       composition.scene.add(mesh);
 
       const o = {
+        $image,
         $imageRect,
         $imageLeft,
         $imageTop,
@@ -62,6 +64,15 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
   });
 }
 
+function setupEvents() {
+  window.addEventListener("resize", () => {
+    // 新しいcanvas取得とapp.$canvasに再設定
+    // camera, rendererのサイズ再設定
+    // メッシュの設定
+    app.meshes?.forEach((mesh) => _onResize(mesh));
+  });
+}
+
 function tick() {
   if (!composition.renderer || !composition.camera) return;
   composition.renderer.render(composition.scene, composition.camera);
@@ -75,6 +86,15 @@ function tick() {
   requestAnimationFrame(() => {
     tick();
   });
+}
+
+function _onResize(mesh: Meshes) {
+  if (!app.$canvas) return;
+  console.log("resize");
+  const { meshLeft, meshTop } = getImagePosition(app.$canvas, mesh.$image);
+
+  mesh.mesh.position.x = meshLeft;
+  mesh.mesh.position.y = meshTop;
 }
 
 export default app;

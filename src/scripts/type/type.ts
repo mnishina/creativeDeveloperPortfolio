@@ -22,6 +22,7 @@ interface CreateMesh {
 }
 
 interface Meshes {
+  $image: Element;
   $imageRect: DOMRect;
   $imageLeft: number;
   $imageTop: number;
@@ -33,6 +34,7 @@ interface Meshes {
 interface App {
   init: ($canvas: HTMLCanvasElement) => void;
   createMesh: (createMesh: CreateMesh) => Promise<unknown>;
+  setupEvents: () => void;
   tick: () => void;
   $canvas: null | HTMLCanvasElement;
   meshes: null | Meshes[];
@@ -79,4 +81,4 @@ interface Shuffle {
   };
 }
 
-export type { DOM, CreateMesh, App, Composition, Loader, Shuffle };
+export type { DOM, CreateMesh, Meshes, App, Composition, Loader, Shuffle };
