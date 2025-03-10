@@ -4,7 +4,11 @@ import { Mesh } from "three";
 
 import composition from "~scripts/common/composition";
 
-import { getImageBounds, getImagePosition } from "~scripts/common/util";
+import {
+  getImageBounds,
+  getImagePosition,
+  getCanvasInfo,
+} from "~scripts/common/util";
 
 const app: App = {
   init,
@@ -66,8 +70,28 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
 
 function setupEvents() {
   window.addEventListener("resize", () => {
+    if (!app.$canvas || !composition.renderer) return;
+
     // 新しいcanvas取得とapp.$canvasに再設定
-    // camera, rendererのサイズ再設定
+    const { $canvasWidth, $canvasHeight, $canvasAspect } = getCanvasInfo(
+      app.$canvas,
+    );
+    composition.sizes.$canvasWidth = $canvasWidth;
+    composition.sizes.$canvasHeight = $canvasHeight;
+
+    // cameraのサイズ再設定
+    if (composition.camera) {
+      composition.camera.aspect = $canvasAspect;
+      composition.camera.updateProjectionMatrix();
+    }
+
+    // rendererのサイズ再設定
+    composition.renderer.setSize(
+      composition.sizes.$canvasWidth,
+      composition.sizes.$canvasHeight,
+      false,
+    );
+
     // メッシュの設定
     app.meshes?.forEach((mesh) => _onResize(mesh));
   });
@@ -90,11 +114,14 @@ function tick() {
 
 function _onResize(mesh: Meshes) {
   if (!app.$canvas) return;
+
   console.log("resize");
   const { meshLeft, meshTop } = getImagePosition(app.$canvas, mesh.$image);
+  const { $imageWidth, $imageHeight } = getImageBounds(mesh.$image);
 
   mesh.mesh.position.x = meshLeft;
   mesh.mesh.position.y = meshTop;
+  mesh.mesh.scale.set($imageWidth, $imageHeight, 0);
 }
 
 export default app;
