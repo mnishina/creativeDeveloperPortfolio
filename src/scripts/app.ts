@@ -8,6 +8,7 @@ import {
   getImageBounds,
   getImagePosition,
   getCanvasInfo,
+  getCameraFOV,
 } from "~scripts/common/util";
 
 const app: App = {
@@ -70,23 +71,26 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
 
 function setupEvents() {
   window.addEventListener("resize", () => {
-    if (!app.$canvas || !composition.renderer) return;
+    const { camera, renderer } = composition;
+    if (!app.$canvas || !renderer) return;
 
     // 新しいcanvas取得とapp.$canvasに再設定
     const { $canvasWidth, $canvasHeight, $canvasAspect } = getCanvasInfo(
       app.$canvas,
     );
+    const cameraFOV = getCameraFOV($canvasHeight, composition.cameraInfo.far);
     composition.sizes.$canvasWidth = $canvasWidth;
     composition.sizes.$canvasHeight = $canvasHeight;
 
     // cameraのサイズ再設定
-    if (composition.camera) {
-      composition.camera.aspect = $canvasAspect;
-      composition.camera.updateProjectionMatrix();
+    if (camera) {
+      camera.aspect = $canvasAspect;
+      camera.fov = cameraFOV;
+      camera.updateProjectionMatrix();
     }
 
     // rendererのサイズ再設定
-    composition.renderer.setSize(
+    renderer.setSize(
       composition.sizes.$canvasWidth,
       composition.sizes.$canvasHeight,
       false,
