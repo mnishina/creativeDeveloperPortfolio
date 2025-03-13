@@ -72,22 +72,19 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
 function setupEvents() {
   window.addEventListener("resize", () => {
     const { camera, renderer } = composition;
-    if (!app.$canvas || !renderer) return;
+    if (!app.$canvas || !renderer || !camera) return;
 
-    // 新しいcanvas取得とapp.$canvasに再設定
     const { $canvasWidth, $canvasHeight, $canvasAspect } = getCanvasInfo(
       app.$canvas,
     );
-    const cameraFOV = getCameraFOV($canvasHeight, composition.cameraInfo.far);
     composition.sizes.$canvasWidth = $canvasWidth;
     composition.sizes.$canvasHeight = $canvasHeight;
 
     // cameraのサイズ再設定
-    if (camera) {
-      camera.aspect = $canvasAspect;
-      camera.fov = cameraFOV;
-      camera.updateProjectionMatrix();
-    }
+    const cameraFOV = getCameraFOV($canvasHeight, composition.cameraInfo.far);
+    camera.aspect = $canvasAspect;
+    camera.fov = cameraFOV;
+    camera.updateProjectionMatrix();
 
     // rendererのサイズ再設定
     renderer.setSize(
