@@ -69,7 +69,7 @@ function init($canvas: HTMLCanvasElement) {
     uniforms: {
       uTexture: { value: null },
       uProgress: { value: 0 },
-      uAlpha: { value: 0 },
+      uAlpha: { value: 1 },
       uTime: { value: 0 },
     },
   });
