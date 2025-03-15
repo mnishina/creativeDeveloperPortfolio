@@ -58,7 +58,7 @@ async function createMesh({ $images, textureCache }: CreateMesh) {
         mesh,
       };
 
-      app.meshes!.push(o);
+      app.meshes?.push(o);
 
       return o;
     });

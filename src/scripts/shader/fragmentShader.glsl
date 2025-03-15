@@ -5,7 +5,6 @@ uniform float uAlpha;
 
 void main() {
   vec4 textureColor = texture2D(uTexture, vUv);
-  textureColor.a = uAlpha;
-
-  gl_FragColor = textureColor;
+  
+  gl_FragColor = vec4(textureColor.rgb, uAlpha);
 }
