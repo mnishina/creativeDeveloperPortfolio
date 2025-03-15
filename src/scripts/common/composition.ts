@@ -6,6 +6,7 @@ import {
   PerspectiveCamera,
   ShaderMaterial,
   PlaneGeometry,
+  Texture,
 } from "three";
 import { getCanvasInfo, getCameraFOV } from "~scripts/common/util";
 
@@ -67,7 +68,7 @@ function init($canvas: HTMLCanvasElement) {
     vertexShader,
     fragmentShader,
     uniforms: {
-      uTexture: { value: null },
+      uTexture: { value: new Texture() },
       uProgress: { value: 0 },
       uAlpha: { value: 1 },
       uTime: { value: 0 },
