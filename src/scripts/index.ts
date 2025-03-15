@@ -13,7 +13,7 @@ const $: DOM = {
 
 await loader.loadAllImage($.images);
 
-const textureCache = loader.textureCashe;
+const textureCache = loader.textureCache;
 
 if ($.canvas) {
   composition.init($.canvas);

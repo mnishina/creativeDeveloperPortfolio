@@ -37,7 +37,7 @@ interface App {
   setupEvents: () => void;
   tick: () => void;
   $canvas: null | HTMLCanvasElement;
-  meshes: null | Meshes[];
+  meshes: Meshes[];
 }
 
 interface Composition {
@@ -64,7 +64,7 @@ interface Composition {
 interface Loader {
   init: () => void;
   loadAllImage: ($images: NodeListOf<Element>) => Promise<void>;
-  textureCashe: Map<string, Texture>;
+  textureCache: Map<string, Texture>;
   textureLoader: null | TextureLoader;
   loadingManager: LoadingManager;
 }

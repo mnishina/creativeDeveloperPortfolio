@@ -5,7 +5,7 @@ import { LoadingManager, TextureLoader } from "three";
 const loader: Loader = {
   init,
   loadAllImage,
-  textureCashe: new Map(),
+  textureCache: new Map(),
   textureLoader: null,
   loadingManager: new LoadingManager(),
 };
@@ -20,7 +20,7 @@ async function loadAllImage($images: NodeListOf<Element>) {
 
     if (url) {
       const texture = loader.textureLoader.load(url);
-      loader.textureCashe.set(url, texture);
+      loader.textureCache.set(url, texture);
     }
   }
 
