@@ -31,6 +31,9 @@ interface Composition {
     near: number;
     far: number;
   };
+  sizes: {
+    segmentAmount: number;
+  };
 
   init: () => void;
   setupComposition: ($: $) => CompositionObjects | undefined;

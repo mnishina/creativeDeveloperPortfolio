@@ -21,6 +21,9 @@ const composition: Composition = {
     near: 0.1,
     far: 1000,
   },
+  sizes: {
+    segmentAmount: 32,
+  },
 
   init,
   setupComposition,
@@ -57,7 +60,12 @@ function setupComposition($: $) {
     false,
   );
 
-  const geometry = new PlaneGeometry(1, 1, 32, 32);
+  const geometry = new PlaneGeometry(
+    1,
+    1,
+    composition.sizes.segmentAmount,
+    composition.sizes.segmentAmount,
+  );
   const material = new ShaderMaterial({ wireframe: true });
   const mesh = new Mesh(geometry, material);
 
