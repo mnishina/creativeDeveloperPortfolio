@@ -18,6 +18,7 @@ interface App {
   $images: NodeListOf<Element>;
 
   init: () => $;
+  setupEvents: ($: $, compositionObjects: CompositionObjects) => void;
   render: (compositionObjects: CompositionObjects) => void;
 }
 

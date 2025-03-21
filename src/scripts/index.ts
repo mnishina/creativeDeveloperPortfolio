@@ -10,6 +10,7 @@ function init() {
   const compositionObjects = composition.setupComposition($);
 
   if (compositionObjects) {
+    app.setupEvents($, compositionObjects);
     app.render(compositionObjects);
   }
 
