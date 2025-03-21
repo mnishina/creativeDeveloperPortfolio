@@ -1,5 +1,8 @@
 import type { $, App, CompositionObjects } from "~scripts/type/type";
 
+import composition from "~scripts/common/composition";
+import util from "~scripts/common/util";
+
 const app: App = {
   $canvas: document.querySelector("[data-element='canvas']"),
   $images: document.querySelectorAll("[data-element='image']"),
@@ -35,6 +38,25 @@ function render(compositionObjects: CompositionObjects) {
 function _onResize($: $, compositionObjects: CompositionObjects) {
   const { $canvas, $images } = $;
   const { scene, camera, renderer } = compositionObjects;
+
+  if (!$canvas) return;
+
+  window.addEventListener("resize", () => {
+    //canvasアップデート
+    const $canvasBounds = util.getCanvasBounds($canvas);
+
+    //rendererアップデート
+    renderer.setSize($canvasBounds.width, $canvasBounds.height, false);
+
+    //cameraアップデート
+    camera.aspect = $canvasBounds.aspect;
+    camera.updateProjectionMatrix();
+
+    //構成値アップデート
+    composition.cameraInfo.aspect = $canvasBounds.aspect;
+  });
 }
+
+function _resizeMeshes() {}
 
 export default app;
