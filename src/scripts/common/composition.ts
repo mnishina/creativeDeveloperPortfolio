@@ -11,6 +11,9 @@ import {
 
 import util from "~scripts/common/util";
 
+import vertexShader from "~scripts/shader/vertexShader.glsl";
+import fragmentShader from "~scripts/shader/fragmentShader.glsl";
+
 const composition: Composition = {
   scene: null,
   camera: null,
@@ -69,7 +72,11 @@ function setupComposition($: $) {
     composition.sizes.segmentAmount,
     composition.sizes.segmentAmount,
   );
-  const material = new ShaderMaterial({ wireframe: true });
+  const material = new ShaderMaterial({
+    wireframe: true,
+    vertexShader,
+    fragmentShader,
+  });
   const mesh = new Mesh(geometry, material);
 
   composition.scene.add(mesh);
