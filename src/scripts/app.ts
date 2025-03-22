@@ -6,6 +6,10 @@ import util from "~scripts/common/util";
 const app: App = {
   $canvas: document.querySelector("[data-element='canvas']"),
   $images: document.querySelectorAll("[data-element='image']"),
+  event: {
+    timeoutID: null,
+    RESIZE_TIME: 300,
+  },
 
   init,
   setupEvents,
@@ -22,7 +26,7 @@ function init() {
 }
 
 function setupEvents($: $, compositionObjects: CompositionObjects) {
-  _onResize($, compositionObjects);
+  window.addEventListener("resize", () => _onResize($, compositionObjects));
 }
 
 function render(compositionObjects: CompositionObjects) {
@@ -41,7 +45,11 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
 
   if (!$canvas) return;
 
-  window.addEventListener("resize", () => {
+  if (app.event.timeoutID !== null) {
+    clearTimeout(app.event.timeoutID);
+  }
+
+  app.event.timeoutID = setTimeout(() => {
     //canvasアップデート
     const $canvasBounds = util.getCanvasBounds($canvas);
 
@@ -54,7 +62,9 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
 
     //構成値アップデート
     composition.cameraInfo.aspect = $canvasBounds.aspect;
-  });
+
+    app.event.timeoutID = null;
+  }, app.event.RESIZE_TIME);
 }
 
 function _resizeMeshes() {}
