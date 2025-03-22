@@ -11,6 +11,9 @@ import {
 
 import util from "~scripts/common/util";
 
+import vertexShader from "~scripts/shader/vertexShader.glsl";
+import fragmentShader from "~scripts/shader/fragmentShader.glsl";
+
 const composition: Composition = {
   scene: null,
   camera: null,
@@ -18,8 +21,8 @@ const composition: Composition = {
   cameraInfo: {
     fov: undefined,
     aspect: undefined,
-    near: 0.1,
-    far: 1000,
+    near: 1,
+    far: 10,
   },
   sizes: {
     segmentAmount: 32,
@@ -39,7 +42,10 @@ function setupComposition($: $) {
 
   composition.scene = new Scene();
 
-  composition.cameraInfo.fov = 75;
+  composition.cameraInfo.fov = util.getCameraFOV(
+    $canvasBounds.height,
+    composition.cameraInfo.far,
+  );
   composition.cameraInfo.aspect = $canvasBounds.width / $canvasBounds.height;
   composition.camera = new PerspectiveCamera(
     composition.cameraInfo.fov,
@@ -47,7 +53,7 @@ function setupComposition($: $) {
     composition.cameraInfo.near,
     composition.cameraInfo.far,
   );
-  composition.camera.position.z = 0;
+  composition.camera.position.z = composition.cameraInfo.far;
 
   composition.renderer = new WebGLRenderer({
     canvas: $canvas,
@@ -61,12 +67,16 @@ function setupComposition($: $) {
   );
 
   const geometry = new PlaneGeometry(
-    1,
-    1,
+    100,
+    100,
     composition.sizes.segmentAmount,
     composition.sizes.segmentAmount,
   );
-  const material = new ShaderMaterial({ wireframe: true });
+  const material = new ShaderMaterial({
+    wireframe: true,
+    vertexShader,
+    fragmentShader,
+  });
   const mesh = new Mesh(geometry, material);
 
   composition.scene.add(mesh);
