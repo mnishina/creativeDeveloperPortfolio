@@ -1,4 +1,10 @@
-import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import {
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
+  Texture,
+  LoadingManager,
+} from "three";
 
 import ShuffleText from "shuffle-text";
 
@@ -15,6 +21,9 @@ interface CompositionObjects {
 
 interface Loader {
   init: () => void;
+  loadImages: () => Promise<void>;
+  loadingManager: LoadingManager;
+  imageCache: Map<string, Texture>;
 }
 
 interface App {
