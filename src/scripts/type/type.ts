@@ -13,6 +13,10 @@ interface CompositionObjects {
   renderer: WebGLRenderer;
 }
 
+interface Loader {
+  init: () => void;
+}
+
 interface App {
   $canvas: Element | null;
   $images: NodeListOf<Element>;
@@ -56,4 +60,4 @@ interface Shuffle {
   };
 }
 
-export type { $, App, CompositionObjects, Composition, Shuffle };
+export type { $, App, CompositionObjects, Loader, Composition, Shuffle };
