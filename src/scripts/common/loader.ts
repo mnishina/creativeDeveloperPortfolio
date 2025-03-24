@@ -21,7 +21,7 @@ async function loadImages() {
       return new Promise((resolve) => {
         const texture = new TextureLoader(loader.loadingManager);
         texture.load(imagePath, (loadedTexture) => {
-          console.log("1");
+          // console.log("1");
           loader.imageCache.set(imagePath, loadedTexture);
 
           resolve(loadedTexture);
@@ -30,10 +30,24 @@ async function loadImages() {
     }
   });
 
+  loader.loadingManager.onProgress = (url, loaded, total) => {
+    _onProgress(url, loaded, total);
+  };
+  loader.loadingManager.onLoad = () => {
+    _onLoad();
+  };
+
   return Promise.all(promises).then(() => {
     console.log("2");
     // console.log(loader.imageCache);
   });
+}
+
+function _onProgress(url: string, loaded: number, total: number) {
+  console.log(url, loaded, total);
+}
+function _onLoad() {
+  console.log("loaded");
 }
 
 export default loader;
