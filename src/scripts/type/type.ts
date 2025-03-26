@@ -20,7 +20,7 @@ interface CompositionObjects {
 }
 
 interface Loader {
-  loadImages: () => Promise<void>;
+  loadImages: () => Promise<unknown>;
   loadingManager: LoadingManager;
   imageCache: Map<string, Texture>;
 }

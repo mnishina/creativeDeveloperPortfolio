@@ -5,8 +5,8 @@ import shuffle from "~scripts/shuffle";
 
 init();
 
-function init() {
-  loader.loadImages();
+async function init() {
+  await loader.loadImages();
 
   const $ = app.init();
 
