@@ -34,6 +34,7 @@ interface App {
   };
 
   init: () => $;
+  createMesh: () => void;
   setupEvents: ($: $, compositionObjects: CompositionObjects) => void;
   render: (compositionObjects: CompositionObjects) => void;
 }
