@@ -11,6 +11,7 @@ import ShuffleText from "shuffle-text";
 interface $ {
   $canvas: Element | null;
   $images: NodeListOf<Element>;
+  $links: NodeListOf<Element>;
 }
 
 interface CompositionObjects {
@@ -28,6 +29,7 @@ interface Loader {
 interface App {
   $canvas: Element | null;
   $images: NodeListOf<Element>;
+  $links: NodeListOf<Element>;
   event: {
     timeoutID: number | null;
     RESIZE_TIME: number;

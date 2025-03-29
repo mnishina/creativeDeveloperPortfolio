@@ -11,6 +11,7 @@ import fragmentShader from "~scripts/shader/fragmentShader.glsl";
 const app: App = {
   $canvas: document.querySelector("[data-element='canvas']"),
   $images: document.querySelectorAll("[data-element='image']"),
+  $links: document.querySelectorAll("[data-element='link']"),
   event: {
     timeoutID: null,
     RESIZE_TIME: 300,
@@ -29,6 +30,7 @@ function init() {
   const $ = {
     $canvas: app.$canvas,
     $images: app.$images,
+    $links: app.$links,
   };
 
   return $;
@@ -55,6 +57,10 @@ function createMesh(compositionObjects: CompositionObjects) {
 
 function setupEvents($: $, compositionObjects: CompositionObjects) {
   window.addEventListener("resize", () => _onResize($, compositionObjects));
+
+  $.$links.forEach(($link) => {
+    $link.addEventListener("mouseover", () => _onMouseOver($link));
+  });
 }
 
 function render(compositionObjects: CompositionObjects) {
@@ -93,6 +99,16 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
 
     app.event.timeoutID = null;
   }, app.event.RESIZE_TIME);
+}
+
+function _onMouseOver($link: Element) {
+  // リンクからdataImage属性を取得
+  // その属性値をmapで収集したキーと比較
+  // 比較したキーからtextureを取得
+  // 取得したtextureをuTextureに設定
+  // fragmentShaderでuTextureを表示
+  const dataImage = $link.getAttribute("data-imagePath");
+  console.log(dataImage);
 }
 
 function _resizeMeshes() {}
