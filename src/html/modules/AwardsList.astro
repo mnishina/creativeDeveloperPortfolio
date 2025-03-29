@@ -8,7 +8,7 @@ import { awards } from "~/db";
   <h2 data-textShuffleTarget>{awards.length} Awards</h2>
   <ul class="mt-6">
     {
-      awards.map(({ project, name, at, url, image }) => {
+      awards.map(({ project, name, at, url, imagePath }) => {
         return (
           <li class="border-t border-dashed border-zinc-200 last:border-b">
             <a
@@ -26,7 +26,7 @@ import { awards } from "~/db";
               <span class="col-start-5 col-span-2" data-textShuffleTarget>
                 {project}
               </span>
-              <ListImage url={image} alt={name} />
+              <ListImage url={imagePath} alt={name} />
             </a>
           </li>
         );
