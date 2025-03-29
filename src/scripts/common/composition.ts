@@ -1,18 +1,8 @@
 import type { $, Composition } from "~scripts/type/type";
 
-import {
-  Scene,
-  PerspectiveCamera,
-  WebGLRenderer,
-  PlaneGeometry,
-  ShaderMaterial,
-  Mesh,
-} from "three";
+import { Scene, PerspectiveCamera, WebGLRenderer } from "three";
 
 import util from "~scripts/common/util";
-
-import vertexShader from "~scripts/shader/vertexShader.glsl";
-import fragmentShader from "~scripts/shader/fragmentShader.glsl";
 
 const composition: Composition = {
   scene: null,
@@ -23,9 +13,6 @@ const composition: Composition = {
     aspect: undefined,
     near: 1,
     far: 10,
-  },
-  sizes: {
-    segmentAmount: 32,
   },
 
   init,
@@ -65,21 +52,6 @@ function setupComposition($: $) {
     $canvasBounds.height,
     false,
   );
-
-  const geometry = new PlaneGeometry(
-    100,
-    100,
-    composition.sizes.segmentAmount,
-    composition.sizes.segmentAmount,
-  );
-  const material = new ShaderMaterial({
-    wireframe: true,
-    vertexShader,
-    fragmentShader,
-  });
-  const mesh = new Mesh(geometry, material);
-
-  composition.scene.add(mesh);
 
   const compositionObjects = {
     scene: composition.scene,

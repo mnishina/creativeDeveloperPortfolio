@@ -1,4 +1,10 @@
-import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import {
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
+  Texture,
+  LoadingManager,
+} from "three";
 
 import ShuffleText from "shuffle-text";
 
@@ -13,6 +19,12 @@ interface CompositionObjects {
   renderer: WebGLRenderer;
 }
 
+interface Loader {
+  loadImages: () => Promise<unknown>;
+  loadingManager: LoadingManager;
+  imageCache: Map<string, Texture>;
+}
+
 interface App {
   $canvas: Element | null;
   $images: NodeListOf<Element>;
@@ -20,8 +32,12 @@ interface App {
     timeoutID: number | null;
     RESIZE_TIME: number;
   };
+  sizes: {
+    segmentAmount: number;
+  };
 
   init: () => $;
+  createMesh: (compositionObjects: CompositionObjects) => void;
   setupEvents: ($: $, compositionObjects: CompositionObjects) => void;
   render: (compositionObjects: CompositionObjects) => void;
 }
@@ -35,9 +51,6 @@ interface Composition {
     aspect: number | undefined;
     near: number;
     far: number;
-  };
-  sizes: {
-    segmentAmount: number;
   };
 
   init: () => void;
@@ -56,4 +69,4 @@ interface Shuffle {
   };
 }
 
-export type { $, App, CompositionObjects, Composition, Shuffle };
+export type { $, App, CompositionObjects, Loader, Composition, Shuffle };

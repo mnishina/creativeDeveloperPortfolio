@@ -1,7 +1,12 @@
 import type { $, App, CompositionObjects } from "~scripts/type/type";
 
+import { PlaneGeometry, ShaderMaterial, Mesh } from "three";
+
 import composition from "~scripts/common/composition";
 import util from "~scripts/common/util";
+
+import vertexShader from "~scripts/shader/vertexShader.glsl";
+import fragmentShader from "~scripts/shader/fragmentShader.glsl";
 
 const app: App = {
   $canvas: document.querySelector("[data-element='canvas']"),
@@ -10,8 +15,12 @@ const app: App = {
     timeoutID: null,
     RESIZE_TIME: 300,
   },
+  sizes: {
+    segmentAmount: 32,
+  },
 
   init,
+  createMesh,
   setupEvents,
   render,
 };
@@ -23,6 +32,25 @@ function init() {
   };
 
   return $;
+}
+
+function createMesh(compositionObjects: CompositionObjects) {
+  const { scene } = compositionObjects;
+
+  const geometry = new PlaneGeometry(
+    100,
+    100,
+    app.sizes.segmentAmount,
+    app.sizes.segmentAmount,
+  );
+  const material = new ShaderMaterial({
+    wireframe: true,
+    vertexShader,
+    fragmentShader,
+  });
+  const mesh = new Mesh(geometry, material);
+
+  scene.add(mesh);
 }
 
 function setupEvents($: $, compositionObjects: CompositionObjects) {
