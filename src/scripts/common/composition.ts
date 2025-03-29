@@ -1,13 +1,6 @@
 import type { $, Composition } from "~scripts/type/type";
 
-import {
-  Scene,
-  PerspectiveCamera,
-  WebGLRenderer,
-  PlaneGeometry,
-  ShaderMaterial,
-  Mesh,
-} from "three";
+import { Scene, PerspectiveCamera, WebGLRenderer } from "three";
 
 import util from "~scripts/common/util";
 
@@ -20,9 +13,6 @@ const composition: Composition = {
     aspect: undefined,
     near: 1,
     far: 10,
-  },
-  sizes: {
-    segmentAmount: 32,
   },
 
   init,

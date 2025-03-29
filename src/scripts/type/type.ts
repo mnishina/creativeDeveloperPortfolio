@@ -32,6 +32,9 @@ interface App {
     timeoutID: number | null;
     RESIZE_TIME: number;
   };
+  sizes: {
+    segmentAmount: number;
+  };
 
   init: () => $;
   createMesh: () => void;
@@ -48,9 +51,6 @@ interface Composition {
     aspect: number | undefined;
     near: number;
     far: number;
-  };
-  sizes: {
-    segmentAmount: number;
   };
 
   init: () => void;

@@ -15,6 +15,9 @@ const app: App = {
     timeoutID: null,
     RESIZE_TIME: 300,
   },
+  sizes: {
+    segmentAmount: 32,
+  },
 
   init,
   createMesh,
@@ -35,10 +38,10 @@ function createMesh() {
   console.log("createMesh");
 
   const geometry = new PlaneGeometry(
-    100,
-    100,
-    composition.sizes.segmentAmount,
-    composition.sizes.segmentAmount,
+    1,
+    1,
+    app.sizes.segmentAmount,
+    app.sizes.segmentAmount,
   );
   const material = new ShaderMaterial({
     wireframe: true,
