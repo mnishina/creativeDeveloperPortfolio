@@ -59,7 +59,7 @@ function setupEvents($: $, compositionObjects: CompositionObjects) {
   window.addEventListener("resize", () => _onResize($, compositionObjects));
 
   $.$links.forEach(($link) => {
-    $link.addEventListener("mouseover", () => _onMouseOver($link));
+    $link.addEventListener("mouseenter", () => _onMouseEnter($link));
   });
 }
 
@@ -101,7 +101,7 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
   }, app.event.RESIZE_TIME);
 }
 
-function _onMouseOver($link: Element) {
+function _onMouseEnter($link: Element) {
   // リンクからdataImage属性を取得
   // その属性値をmapで収集したキーと比較
   // 比較したキーからtextureを取得
