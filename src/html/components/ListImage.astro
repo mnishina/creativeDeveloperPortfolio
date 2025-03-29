@@ -1,9 +1,9 @@
 ---
-const { url, alt } = Astro.props;
+const { imagePath, alt } = Astro.props;
 ---
 
 <img
-  src={url}
+  src={imagePath}
   alt={alt}
   loading="eager"
   class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-0"
