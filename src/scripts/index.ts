@@ -15,7 +15,7 @@ async function init() {
   const compositionObjects = composition.setupComposition($);
 
   if (compositionObjects) {
-    app.createMesh();
+    app.createMesh(compositionObjects);
     app.setupEvents($, compositionObjects);
     app.render(compositionObjects);
   }

@@ -34,12 +34,12 @@ function init() {
   return $;
 }
 
-function createMesh() {
-  console.log("createMesh");
+function createMesh(compositionObjects: CompositionObjects) {
+  const { scene } = compositionObjects;
 
   const geometry = new PlaneGeometry(
-    1,
-    1,
+    100,
+    100,
     app.sizes.segmentAmount,
     app.sizes.segmentAmount,
   );
@@ -50,7 +50,7 @@ function createMesh() {
   });
   const mesh = new Mesh(geometry, material);
 
-  composition.scene!.add(mesh);
+  scene.add(mesh);
 }
 
 function setupEvents($: $, compositionObjects: CompositionObjects) {
