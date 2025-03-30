@@ -1,6 +1,12 @@
-import type { $, App, CompositionObjects } from "~scripts/type/type";
+import type {
+  $,
+  App,
+  CompositionObjects,
+  MeshStore,
+  Uniforms,
+} from "~scripts/type/type";
 
-import { PlaneGeometry, ShaderMaterial, Mesh } from "three";
+import { PlaneGeometry, ShaderMaterial, Mesh, Texture } from "three";
 
 import composition from "~scripts/common/composition";
 import util from "~scripts/common/util";
@@ -18,6 +24,11 @@ const app: App = {
   },
   sizes: {
     segmentAmount: 32,
+  },
+  meshStore: {
+    geometry: null,
+    material: null,
+    mesh: null,
   },
 
   init,
@@ -39,6 +50,10 @@ function init() {
 function createMesh(compositionObjects: CompositionObjects) {
   const { scene } = compositionObjects;
 
+  const uniforms: Uniforms = {
+    uTexture: { value: null },
+  };
+
   const geometry = new PlaneGeometry(
     100,
     100,
@@ -49,17 +64,33 @@ function createMesh(compositionObjects: CompositionObjects) {
     wireframe: true,
     vertexShader,
     fragmentShader,
+    uniforms,
   });
   const mesh = new Mesh(geometry, material);
 
   scene.add(mesh);
+
+  app.meshStore = {
+    geometry,
+    material,
+    mesh,
+  };
 }
 
-function setupEvents($: $, compositionObjects: CompositionObjects) {
+function setupEvents(
+  $: $,
+  compositionObjects: CompositionObjects,
+  imageStore: Map<string, Texture>,
+) {
   window.addEventListener("resize", () => _onResize($, compositionObjects));
 
   $.$links.forEach(($link) => {
-    $link.addEventListener("mouseenter", () => _onMouseEnter($link));
+    // リンクからdataImage属性を取得
+    const dataImagePath = $link.getAttribute("data-imagePath");
+
+    const mouseEnterHandler = () =>
+      _onMouseEnter($link, dataImagePath!, imageStore);
+    $link.addEventListener("mouseenter", mouseEnterHandler);
   });
 }
 
@@ -101,14 +132,22 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
   }, app.event.RESIZE_TIME);
 }
 
-function _onMouseEnter($link: Element) {
-  // リンクからdataImage属性を取得
+function _onMouseEnter(
+  $link: Element,
+  dataImagePath: string,
+  imageStore: Map<string, Texture>,
+) {
+  // console.log(dataImagePath);
+
   // その属性値をmapで収集したキーと比較
   // 比較したキーからtextureを取得
   // 取得したtextureをuTextureに設定
   // fragmentShaderでuTextureを表示
-  const dataImage = $link.getAttribute("data-imagePath");
-  console.log(dataImage);
+  imageStore.forEach((value, key) => {
+    if (dataImagePath === key) {
+      console.log(key);
+    }
+  });
 }
 
 function _resizeMeshes() {}

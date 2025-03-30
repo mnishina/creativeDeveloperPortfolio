@@ -1,4 +1,7 @@
 import {
+  PlaneGeometry,
+  ShaderMaterial,
+  Mesh,
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
@@ -20,6 +23,21 @@ interface CompositionObjects {
   renderer: WebGLRenderer;
 }
 
+interface MeshStore {
+  geometry: PlaneGeometry | null;
+  material: ShaderMaterial | null;
+  mesh: Mesh | null;
+}
+
+interface Uniforms {
+  [key: string]: {
+    value: Texture | null;
+  };
+  uTexture: {
+    value: Texture | null;
+  };
+}
+
 interface Loader {
   loadImages: () => Promise<unknown>;
   loadingManager: LoadingManager;
@@ -37,10 +55,15 @@ interface App {
   sizes: {
     segmentAmount: number;
   };
+  meshStore: MeshStore;
 
   init: () => $;
   createMesh: (compositionObjects: CompositionObjects) => void;
-  setupEvents: ($: $, compositionObjects: CompositionObjects) => void;
+  setupEvents: (
+    $: $,
+    compositionObjects: CompositionObjects,
+    imageStore: Map<string, Texture>,
+  ) => void;
   render: (compositionObjects: CompositionObjects) => void;
 }
 
@@ -71,4 +94,13 @@ interface Shuffle {
   };
 }
 
-export type { $, App, CompositionObjects, Loader, Composition, Shuffle };
+export type {
+  $,
+  App,
+  MeshStore,
+  CompositionObjects,
+  Uniforms,
+  Loader,
+  Composition,
+  Shuffle,
+};

@@ -16,7 +16,7 @@ async function init() {
 
   if (compositionObjects) {
     app.createMesh(compositionObjects);
-    app.setupEvents($, compositionObjects);
+    app.setupEvents($, compositionObjects, loader.imageStore);
     app.render(compositionObjects);
   }
 
