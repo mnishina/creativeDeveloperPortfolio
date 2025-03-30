@@ -1,4 +1,7 @@
 import {
+  PlaneGeometry,
+  ShaderMaterial,
+  Mesh,
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
@@ -11,6 +14,7 @@ import ShuffleText from "shuffle-text";
 interface $ {
   $canvas: Element | null;
   $images: NodeListOf<Element>;
+  $links: NodeListOf<Element>;
 }
 
 interface CompositionObjects {
@@ -19,15 +23,37 @@ interface CompositionObjects {
   renderer: WebGLRenderer;
 }
 
+interface ImageStoreValue {
+  texture: Texture | null;
+  width: number;
+  height: number;
+}
+
+interface MeshStore {
+  geometry: PlaneGeometry | null;
+  material: ShaderMaterial | null;
+  mesh: Mesh | null;
+}
+
+interface Uniforms {
+  [key: string]: {
+    value: Texture | null;
+  };
+  uTexture: {
+    value: Texture | null;
+  };
+}
+
 interface Loader {
   loadImages: () => Promise<unknown>;
   loadingManager: LoadingManager;
-  imageCache: Map<string, Texture>;
+  imageStore: Map<string, ImageStoreValue>;
 }
 
 interface App {
   $canvas: Element | null;
   $images: NodeListOf<Element>;
+  $links: NodeListOf<Element>;
   event: {
     timeoutID: number | null;
     RESIZE_TIME: number;
@@ -35,10 +61,15 @@ interface App {
   sizes: {
     segmentAmount: number;
   };
+  meshStore: MeshStore;
 
   init: () => $;
   createMesh: (compositionObjects: CompositionObjects) => void;
-  setupEvents: ($: $, compositionObjects: CompositionObjects) => void;
+  setupEvents: (
+    $: $,
+    compositionObjects: CompositionObjects,
+    imageStore: Map<string, ImageStoreValue>,
+  ) => void;
   render: (compositionObjects: CompositionObjects) => void;
 }
 
@@ -69,4 +100,14 @@ interface Shuffle {
   };
 }
 
-export type { $, App, CompositionObjects, Loader, Composition, Shuffle };
+export type {
+  $,
+  App,
+  MeshStore,
+  ImageStoreValue,
+  CompositionObjects,
+  Uniforms,
+  Loader,
+  Composition,
+  Shuffle,
+};

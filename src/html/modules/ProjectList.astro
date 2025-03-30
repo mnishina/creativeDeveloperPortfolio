@@ -8,29 +8,32 @@ import { projects } from "~/db";
   <h2 data-textShuffleTarget>{projects.length} Projects</h2>
   <ul class="mt-6">
     {
-      projects.map(({ projectYear, projectName, projectURL, projectImage }) => {
-        return (
-          <li class="border-t border-dashed border-zinc-200 last:border-b">
-            <a
-              href={projectURL}
-              target="_blank"
-              class="grid grid-cols-12 gap-gridGap py-8"
-              data-element="link"
-            >
-              <span class="col-start-1 col-span-2" data-textShuffleTarget>
-                {projectYear}
-              </span>
-              <span class="col-start-3 col-span-2" data-textShuffleTarget>
-                {projectName}
-              </span>
-              <span class="col-start-5 col-span-full" data-textShuffleTarget>
-                {projectURL}
-              </span>
-              <ListImage url={projectImage} alt={projectName} />
-            </a>
-          </li>
-        );
-      })
+      projects.map(
+        ({ projectYear, projectName, projectURL, projectImagePath }) => {
+          return (
+            <li class="border-t border-dashed border-zinc-200 last:border-b">
+              <a
+                href={projectURL}
+                target="_blank"
+                class="grid grid-cols-12 gap-gridGap py-8"
+                data-element="link"
+                data-imagePath={projectImagePath}
+              >
+                <span class="col-start-1 col-span-2" data-textShuffleTarget>
+                  {projectYear}
+                </span>
+                <span class="col-start-3 col-span-2" data-textShuffleTarget>
+                  {projectName}
+                </span>
+                <span class="col-start-5 col-span-full" data-textShuffleTarget>
+                  {projectURL}
+                </span>
+                <ListImage imagePath={projectImagePath} alt={projectName} />
+              </a>
+            </li>
+          );
+        },
+      )
     }
   </ul>
 </section>

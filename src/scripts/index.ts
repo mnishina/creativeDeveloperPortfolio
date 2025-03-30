@@ -8,7 +8,7 @@ init();
 async function init() {
   await loader.loadImages();
 
-  console.log(loader.imageCache);
+  console.log(loader.imageStore);
 
   const $ = app.init();
 
@@ -16,7 +16,7 @@ async function init() {
 
   if (compositionObjects) {
     app.createMesh(compositionObjects);
-    app.setupEvents($, compositionObjects);
+    app.setupEvents($, compositionObjects, loader.imageStore);
     app.render(compositionObjects);
   }
 
