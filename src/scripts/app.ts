@@ -138,7 +138,7 @@ function _onMouseEnter(
   imageStore.forEach((value, key) => {
     if (dataImagePath === key) {
       if (!app.meshStore.material || !app.meshStore.mesh) return;
-      app.meshStore.material.uniforms.uTexture.value = value.texture;
+      // app.meshStore.material.uniforms.uTexture.value = value.texture;
       app.meshStore.mesh.scale.set(value.width, value.height, 0);
     }
   });
