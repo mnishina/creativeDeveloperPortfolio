@@ -7,7 +7,7 @@ import app from "~scripts/app";
 const loader: Loader = {
   loadImages,
   loadingManager: new LoadingManager(),
-  imageCache: new Map(),
+  imageStore: new Map(),
 };
 
 async function loadImages() {
@@ -20,7 +20,7 @@ async function loadImages() {
       const texture = new TextureLoader(loader.loadingManager);
       if (imagePath) {
         texture.load(imagePath, (loadedTexture) => {
-          loader.imageCache.set(imagePath, loadedTexture);
+          loader.imageStore.set(imagePath, loadedTexture);
         });
       }
     });
