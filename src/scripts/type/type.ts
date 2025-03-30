@@ -23,6 +23,12 @@ interface CompositionObjects {
   renderer: WebGLRenderer;
 }
 
+interface ImageStoreValue {
+  texture: Texture | null;
+  width: number;
+  height: number;
+}
+
 interface MeshStore {
   geometry: PlaneGeometry | null;
   material: ShaderMaterial | null;
@@ -41,7 +47,7 @@ interface Uniforms {
 interface Loader {
   loadImages: () => Promise<unknown>;
   loadingManager: LoadingManager;
-  imageStore: Map<string, Texture>;
+  imageStore: Map<string, ImageStoreValue>;
 }
 
 interface App {
@@ -62,7 +68,7 @@ interface App {
   setupEvents: (
     $: $,
     compositionObjects: CompositionObjects,
-    imageStore: Map<string, Texture>,
+    imageStore: Map<string, ImageStoreValue>,
   ) => void;
   render: (compositionObjects: CompositionObjects) => void;
 }
@@ -98,6 +104,7 @@ export type {
   $,
   App,
   MeshStore,
+  ImageStoreValue,
   CompositionObjects,
   Uniforms,
   Loader,

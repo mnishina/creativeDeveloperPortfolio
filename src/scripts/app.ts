@@ -2,7 +2,7 @@ import type {
   $,
   App,
   CompositionObjects,
-  MeshStore,
+  ImageStoreValue,
   Uniforms,
 } from "~scripts/type/type";
 
@@ -55,13 +55,13 @@ function createMesh(compositionObjects: CompositionObjects) {
   };
 
   const geometry = new PlaneGeometry(
-    100,
-    100,
+    1,
+    1,
     app.sizes.segmentAmount,
     app.sizes.segmentAmount,
   );
   const material = new ShaderMaterial({
-    wireframe: true,
+    wireframe: false,
     vertexShader,
     fragmentShader,
     uniforms,
@@ -70,17 +70,15 @@ function createMesh(compositionObjects: CompositionObjects) {
 
   scene.add(mesh);
 
-  app.meshStore = {
-    geometry,
-    material,
-    mesh,
-  };
+  app.meshStore.geometry = geometry;
+  app.meshStore.material = material;
+  app.meshStore.mesh = mesh;
 }
 
 function setupEvents(
   $: $,
   compositionObjects: CompositionObjects,
-  imageStore: Map<string, Texture>,
+  imageStore: Map<string, ImageStoreValue>,
 ) {
   window.addEventListener("resize", () => _onResize($, compositionObjects));
 
@@ -135,17 +133,13 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
 function _onMouseEnter(
   $link: Element,
   dataImagePath: string,
-  imageStore: Map<string, Texture>,
+  imageStore: Map<string, ImageStoreValue>,
 ) {
-  // console.log(dataImagePath);
-
-  // その属性値をmapで収集したキーと比較
-  // 比較したキーからtextureを取得
-  // 取得したtextureをuTextureに設定
-  // fragmentShaderでuTextureを表示
   imageStore.forEach((value, key) => {
     if (dataImagePath === key) {
-      console.log(key);
+      if (!app.meshStore.material || !app.meshStore.mesh) return;
+      app.meshStore.material.uniforms.uTexture.value = value.texture;
+      app.meshStore.mesh.scale.set(value.width, value.height, 0);
     }
   });
 }

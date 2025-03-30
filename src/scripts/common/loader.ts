@@ -17,10 +17,16 @@ async function loadImages() {
     app.$images.forEach(($image) => {
       const imagePath = $image.getAttribute("src");
 
+      const imageWidth = ($image as HTMLImageElement).naturalWidth;
+      const imageHeight = ($image as HTMLImageElement).naturalHeight;
       const texture = new TextureLoader(loader.loadingManager);
       if (imagePath) {
         texture.load(imagePath, (loadedTexture) => {
-          loader.imageStore.set(imagePath, loadedTexture);
+          loader.imageStore.set(imagePath, {
+            texture: loadedTexture,
+            width: imageWidth,
+            height: imageHeight,
+          });
         });
       }
     });
