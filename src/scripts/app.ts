@@ -129,6 +129,7 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
 
     //構成値アップデート
     composition.cameraInfo.aspect = $canvasBounds.aspect;
+    composition.cameraInfo.fov = camera.fov;
 
     app.event.timeoutID = null;
   }, app.event.RESIZE_TIME);
