@@ -121,6 +121,10 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
 
     //cameraアップデート
     camera.aspect = $canvasBounds.aspect;
+    camera.fov = util.getCameraFOV(
+      $canvasBounds.height,
+      composition.cameraInfo.far,
+    );
     camera.updateProjectionMatrix();
 
     //構成値アップデート
