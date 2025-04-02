@@ -80,8 +80,6 @@ function setupEvents(
   compositionObjects: CompositionObjects,
   imageStore: Map<string, ImageStoreValue>,
 ) {
-  window.addEventListener("resize", () => _onResize($, compositionObjects));
-
   $.$links.forEach(($link) => {
     // リンクからdataImage属性を取得
     const dataImagePath = $link.getAttribute("data-imagePath");
@@ -90,6 +88,16 @@ function setupEvents(
       _onMouseEnter($link, dataImagePath!, imageStore);
     $link.addEventListener("mouseenter", mouseEnterHandler);
   });
+
+  window.addEventListener("mousemove", (event) => {
+    const { $canvas } = $;
+    if (!$canvas) return;
+    const $canvasBounds = util.getCanvasBounds($canvas);
+
+    _onMouseMove(event, $canvasBounds.width, $canvasBounds.height);
+  });
+
+  window.addEventListener("resize", () => _onResize($, compositionObjects));
 }
 
 function render(compositionObjects: CompositionObjects) {
@@ -147,6 +155,18 @@ function _onMouseEnter(
       app.meshStore.mesh.scale.set(value.width, value.height, 0);
     }
   });
+}
+
+function _onMouseMove(
+  event: MouseEvent,
+  $canvasWidth: number,
+  $canvasHeight: number,
+) {
+  //マウス座標を-1~1に正規化
+  const mouseX = (event.clientX / $canvasWidth) * 2 - 1;
+  const mouseY = -(event.clientY / $canvasHeight) * 2 + 1;
+
+  console.log(mouseX, mouseY);
 }
 
 export default app;
