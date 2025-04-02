@@ -121,10 +121,15 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
 
     //cameraアップデート
     camera.aspect = $canvasBounds.aspect;
+    camera.fov = util.getCameraFOV(
+      $canvasBounds.height,
+      composition.cameraInfo.far,
+    );
     camera.updateProjectionMatrix();
 
     //構成値アップデート
     composition.cameraInfo.aspect = $canvasBounds.aspect;
+    composition.cameraInfo.fov = camera.fov;
 
     app.event.timeoutID = null;
   }, app.event.RESIZE_TIME);
@@ -143,7 +148,5 @@ function _onMouseEnter(
     }
   });
 }
-
-function _resizeMeshes() {}
 
 export default app;
