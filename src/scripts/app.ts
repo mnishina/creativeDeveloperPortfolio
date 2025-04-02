@@ -149,6 +149,4 @@ function _onMouseEnter(
   });
 }
 
-function _resizeMeshes() {}
-
 export default app;
