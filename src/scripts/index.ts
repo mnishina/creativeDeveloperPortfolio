@@ -8,8 +8,6 @@ init();
 async function init() {
   await loader.loadImages();
 
-  console.log(loader.imageStore);
-
   const $ = app.init();
 
   const compositionObjects = composition.setupComposition($);
