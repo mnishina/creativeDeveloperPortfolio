@@ -4,6 +4,7 @@ const util = {
   getCanvasBounds,
   getCameraFOV,
   // getWorldPosition,
+  mapRange,
 };
 
 function getCanvasBounds($canvas: Element) {
@@ -24,6 +25,19 @@ function getCameraFOV($canvasHeight: number, cameraFar: number) {
   const fov = degree;
 
   return fov;
+}
+
+function mapRange(
+  value: number,
+  in_min: number,
+  in_max: number,
+  out_min: number,
+  out_max: number,
+): number {
+  //数値の「マッピング」（値の範囲変換）を行うためのユーティリティ関数
+  //ある範囲の数値を別の範囲に変換するための計算
+  //例：0から100の範囲の値を0から1の範囲に変換したい
+  return ((value - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
 }
 
 // function getWorldPosition($canvas: Element) {
