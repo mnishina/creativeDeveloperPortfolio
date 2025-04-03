@@ -6,7 +6,7 @@ import type {
   Uniforms,
 } from "~scripts/type/type";
 
-import { PlaneGeometry, ShaderMaterial, Mesh, Texture } from "three";
+import { PlaneGeometry, ShaderMaterial, Mesh, Texture, Vector3 } from "three";
 
 import composition from "~scripts/common/composition";
 import util from "~scripts/common/util";
@@ -166,7 +166,12 @@ function _onMouseMove(
   const mouseX = (event.clientX / $canvasWidth) * 2 - 1;
   const mouseY = -(event.clientY / $canvasHeight) * 2 + 1;
 
-  console.log(mouseX, mouseY);
+  const x = util.mapRange(mouseX, -1, 1, -$canvasWidth / 2, $canvasWidth / 2);
+  const y = util.mapRange(mouseY, -1, 1, -$canvasHeight / 2, $canvasHeight / 2);
+
+  if (!app.meshStore.mesh) return;
+
+  app.meshStore.mesh?.position.set(x, y, 0);
 }
 
 export default app;
