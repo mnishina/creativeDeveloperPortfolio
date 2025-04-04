@@ -6,7 +6,7 @@ import { projects } from "~/db";
 
 <section class="mt-24">
   <h2 data-textShuffleTarget>{projects.length} Projects</h2>
-  <ul class="mt-6">
+  <ul class="mt-6" data-element="list">
     {
       projects.map(
         ({ projectYear, projectName, projectURL, projectImagePath }) => {

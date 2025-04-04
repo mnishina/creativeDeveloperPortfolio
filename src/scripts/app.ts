@@ -18,6 +18,7 @@ const app: App = {
   $canvas: document.querySelector("[data-element='canvas']"),
   $images: document.querySelectorAll("[data-element='image']"),
   $links: document.querySelectorAll("[data-element='link']"),
+  $list: document.querySelectorAll('[data-element="list"]'),
   event: {
     timeoutID: null,
     RESIZE_TIME: 300,
@@ -42,6 +43,7 @@ function init() {
     $canvas: app.$canvas,
     $images: app.$images,
     $links: app.$links,
+    $list: app.$list,
   };
 
   return $;

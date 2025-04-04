@@ -15,6 +15,7 @@ interface $ {
   $canvas: Element | null;
   $images: NodeListOf<Element>;
   $links: NodeListOf<Element>;
+  $list: NodeListOf<Element>;
 }
 
 interface CompositionObjects {
@@ -54,6 +55,7 @@ interface App {
   $canvas: Element | null;
   $images: NodeListOf<Element>;
   $links: NodeListOf<Element>;
+  $list: NodeListOf<Element>;
   event: {
     timeoutID: number | null;
     RESIZE_TIME: number;
