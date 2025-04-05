@@ -6,7 +6,7 @@ import type {
   Uniforms,
 } from "~scripts/type/type";
 
-import { PlaneGeometry, ShaderMaterial, Mesh, Texture, Vector3 } from "three";
+import { PlaneGeometry, ShaderMaterial, Mesh } from "three";
 
 import composition from "~scripts/common/composition";
 import util from "~scripts/common/util";
