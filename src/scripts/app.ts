@@ -7,6 +7,7 @@ import type {
 } from "~scripts/type/type";
 
 import { PlaneGeometry, ShaderMaterial, Mesh } from "three";
+import { gsap } from "gsap";
 
 import composition from "~scripts/common/composition";
 import util from "~scripts/common/util";
@@ -175,7 +176,11 @@ function _onListEnter() {
   // console.log("enter list", app.state.isMeshVisible);
 
   if (!app.state.isMeshVisible && app.meshStore.material) {
-    app.meshStore.material.uniforms.uAlpha.value = 1;
+    gsap.to(app.meshStore.material.uniforms.uAlpha, {
+      value: 1,
+      duration: 0.2,
+      ease: "power4.out",
+    });
   }
 
   app.state.isMeshVisible = true;
@@ -184,7 +189,11 @@ function _onListLeave() {
   // console.log("leave list ", app.state.isMeshVisible);
 
   if (app.state.isMeshVisible && app.meshStore.material) {
-    app.meshStore.material.uniforms.uAlpha.value = 0;
+    gsap.to(app.meshStore.material.uniforms.uAlpha, {
+      value: 0,
+      duration: 0.2,
+      ease: "power4.out",
+    });
   }
 
   app.state.isMeshVisible = false;
