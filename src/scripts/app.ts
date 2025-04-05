@@ -31,6 +31,9 @@ const app: App = {
     material: null,
     mesh: null,
   },
+  state: {
+    isMeshVisible: false,
+  },
 
   init,
   createMesh,
@@ -169,10 +172,12 @@ function _onLinkEnter(
 }
 
 function _onListEnter() {
-  console.log("enter list");
+  app.state.isMeshVisible = true;
+  console.log("enter list", app.state.isMeshVisible);
 }
 function _onListLeave() {
-  console.log("leave list");
+  app.state.isMeshVisible = false;
+  console.log("leave list ", app.state.isMeshVisible);
 }
 
 function _onMouseMove(

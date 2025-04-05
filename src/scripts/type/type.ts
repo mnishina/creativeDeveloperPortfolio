@@ -70,6 +70,9 @@ interface App {
     segmentAmount: number;
   };
   meshStore: MeshStore;
+  state: {
+    isMeshVisible: boolean;
+  };
 
   init: () => $;
   createMesh: (compositionObjects: CompositionObjects) => void;
