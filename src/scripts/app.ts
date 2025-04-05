@@ -54,6 +54,8 @@ function createMesh(compositionObjects: CompositionObjects) {
 
   const uniforms: Uniforms = {
     uTexture: { value: null },
+    uAlpha: { value: 0 },
+    uProgress: { value: 0 },
   };
 
   const geometry = new PlaneGeometry(
@@ -89,6 +91,13 @@ function setupEvents(
     const linkEnterHandler = () =>
       _onLinkEnter($link, dataImagePath!, imageStore);
     $link.addEventListener("mouseenter", linkEnterHandler);
+  });
+
+  $.$list.forEach(($list) => {
+    $list.addEventListener("mouseenter", () => _onListEnter());
+  });
+  $.$list.forEach(($list) => {
+    $list.addEventListener("mouseleave", () => _onListLeave());
   });
 
   window.addEventListener("mousemove", (event) => {
@@ -157,6 +166,13 @@ function _onLinkEnter(
       app.meshStore.mesh.scale.set(value.width, value.height, 0);
     }
   });
+}
+
+function _onListEnter() {
+  console.log("enter list");
+}
+function _onListLeave() {
+  console.log("leave list");
 }
 
 function _onMouseMove(

@@ -38,10 +38,16 @@ interface MeshStore {
 
 interface Uniforms {
   [key: string]: {
-    value: Texture | null;
+    value: Texture | number | null;
   };
   uTexture: {
     value: Texture | null;
+  };
+  uAlpha: {
+    value: number | null;
+  };
+  uProgress: {
+    value: number | null;
   };
 }
 
