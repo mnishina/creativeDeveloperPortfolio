@@ -165,19 +165,29 @@ function _onLinkEnter(
   imageStore.forEach((value, key) => {
     if (dataImagePath === key) {
       if (!app.meshStore.material || !app.meshStore.mesh) return;
-      // app.meshStore.material.uniforms.uTexture.value = value.texture;
+      app.meshStore.material.uniforms.uTexture.value = value.texture;
       app.meshStore.mesh.scale.set(value.width, value.height, 0);
     }
   });
 }
 
 function _onListEnter() {
+  // console.log("enter list", app.state.isMeshVisible);
+
+  if (!app.state.isMeshVisible && app.meshStore.material) {
+    app.meshStore.material.uniforms.uAlpha.value = 1;
+  }
+
   app.state.isMeshVisible = true;
-  console.log("enter list", app.state.isMeshVisible);
 }
 function _onListLeave() {
+  // console.log("leave list ", app.state.isMeshVisible);
+
+  if (app.state.isMeshVisible && app.meshStore.material) {
+    app.meshStore.material.uniforms.uAlpha.value = 0;
+  }
+
   app.state.isMeshVisible = false;
-  console.log("leave list ", app.state.isMeshVisible);
 }
 
 function _onMouseMove(
