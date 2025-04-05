@@ -86,9 +86,9 @@ function setupEvents(
     // リンクからdataImage属性を取得
     const dataImagePath = $link.getAttribute("data-imagePath");
 
-    const mouseEnterHandler = () =>
-      _onMouseEnter($link, dataImagePath!, imageStore);
-    $link.addEventListener("mouseenter", mouseEnterHandler);
+    const linkEnterHandler = () =>
+      _onLinkEnter($link, dataImagePath!, imageStore);
+    $link.addEventListener("mouseenter", linkEnterHandler);
   });
 
   window.addEventListener("mousemove", (event) => {
@@ -145,7 +145,7 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
   }, app.event.RESIZE_TIME);
 }
 
-function _onMouseEnter(
+function _onLinkEnter(
   $link: Element,
   dataImagePath: string,
   imageStore: Map<string, ImageStoreValue>,
