@@ -181,6 +181,12 @@ function _onListEnter() {
       duration: 0.2,
       ease: "power4.out",
     });
+
+    gsap.to(app.meshStore.material.uniforms.uProgress, {
+      value: 15,
+      duration: 0.2,
+      ease: "power4.out",
+    });
   }
 
   app.state.isMeshVisible = true;
@@ -190,6 +196,12 @@ function _onListLeave() {
 
   if (app.state.isMeshVisible && app.meshStore.material) {
     gsap.to(app.meshStore.material.uniforms.uAlpha, {
+      value: 0,
+      duration: 0.2,
+      ease: "power4.out",
+    });
+
+    gsap.to(app.meshStore.material.uniforms.uProgress, {
       value: 0,
       duration: 0.2,
       ease: "power4.out",
