@@ -8,7 +8,6 @@
       "~/*": ["./src/*"],
       "~html/*": ["./src/html/*"],
       "~scripts/*": ["./src/scripts/*"]
-    },
-    "typeRoots": ["./node_modules/@types"]
+    }
   }
 }

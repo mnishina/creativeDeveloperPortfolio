@@ -118,17 +118,8 @@ function setupEvents(
 function render(compositionObjects: CompositionObjects) {
   const { scene, camera, renderer } = compositionObjects;
 
-  // Z軸の移動をテスト（0から1の間で往復）
-  const time = performance.now() * 0.001; // 秒単位の時間
-  app.meshStore.material!.uniforms.uProgress.value = Math.sin(time) * 0.5 + 0.5;
-
   if (scene && camera && renderer) {
     renderer.render(scene, camera);
-  }
-
-  // コントロールの更新
-  if (composition.controls) {
-    composition.controls.update();
   }
 
   requestAnimationFrame(() => render(compositionObjects));
@@ -234,8 +225,7 @@ function _onMouseMove(
 
   if (!app.meshStore.mesh) return;
 
-  app.meshStore.mesh!.position.x = x;
-  app.meshStore.mesh!.position.y = y;
+  app.meshStore.mesh?.position.set(x, y, 0);
 }
 
 export default app;
