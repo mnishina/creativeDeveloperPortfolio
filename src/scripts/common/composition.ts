@@ -4,6 +4,8 @@ import { Scene, PerspectiveCamera, WebGLRenderer } from "three";
 
 import util from "~scripts/common/util";
 
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
 const composition: Composition = {
   scene: null,
   camera: null,
@@ -14,6 +16,7 @@ const composition: Composition = {
     near: 1,
     far: 10,
   },
+  controls: null,
 
   init,
   setupComposition,
@@ -52,6 +55,17 @@ function setupComposition($: $) {
     $canvasBounds.height,
     false,
   );
+
+  const controls = new OrbitControls(
+    composition.camera,
+    composition.renderer.domElement,
+  );
+  controls.enableDamping = true; // スムーズな動き
+  controls.dampingFactor = 0.05; // 減衰係数
+  controls.enableZoom = true; // ズーム可能
+  controls.enablePan = true; // パン可能
+  controls.enableRotate = true; // 回転可能
+  composition.controls = controls;
 
   const compositionObjects = {
     scene: composition.scene,

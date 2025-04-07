@@ -9,6 +9,8 @@ import {
   LoadingManager,
 } from "three";
 
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
 import ShuffleText from "shuffle-text";
 
 interface $ {
@@ -94,6 +96,7 @@ interface Composition {
     near: number;
     far: number;
   };
+  controls: OrbitControls | null;
 
   init: () => void;
   setupComposition: ($: $) => CompositionObjects | undefined;
