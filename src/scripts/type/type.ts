@@ -46,6 +46,9 @@ interface Uniforms {
   uAlpha: {
     value: number | null;
   };
+  uMosaicProgress: {
+    value: number | null;
+  };
   uProgress: {
     value: number | null;
   };

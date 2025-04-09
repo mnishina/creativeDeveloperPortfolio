@@ -59,6 +59,7 @@ function createMesh(compositionObjects: CompositionObjects) {
   const uniforms: Uniforms = {
     uTexture: { value: null },
     uAlpha: { value: 0 },
+    uMosaicProgress: { value: 0 },
     uProgress: { value: 0 },
   };
 
@@ -182,16 +183,16 @@ function _onListEnter() {
       ease: "power4.out",
     });
 
-    gsap.to(app.meshStore.material.uniforms.uProgress, {
-      value: 200,
-      duration: 0.2,
+    gsap.to(app.meshStore.material.uniforms.uMosaicProgress, {
+      value: 1,
+      duration: 1.2,
       ease: "power4.out",
-      onUpdate: () => {
-        console.log(
-          "Progress:",
-          app.meshStore.material?.uniforms.uProgress.value,
-        );
-      },
+      // onUpdate: () => {
+      //   console.log(
+      //     "Progress:",
+      //     app.meshStore.material?.uniforms.uMosaicProgress.value,
+      //   );
+      // },
     });
   }
 
@@ -207,9 +208,9 @@ function _onListLeave() {
       ease: "power4.out",
     });
 
-    gsap.to(app.meshStore.material.uniforms.uProgress, {
+    gsap.to(app.meshStore.material.uniforms.uMosaicProgress, {
       value: 0,
-      duration: 0.2,
+      duration: 1.2,
       ease: "power4.out",
     });
   }
