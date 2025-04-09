@@ -14,17 +14,26 @@ import { awards } from "~/db";
             <a
               href={url}
               target="_blank"
-              class="grid grid-cols-12 gap-gridGap py-6"
+              class="grid grid-cols-12 gap-gridGap py-6 group"
               data-element="link"
               data-imagePath={imagePath}
             >
-              <span class="col-start-1 col-span-2" data-textShuffleTarget>
+              <span
+                class="col-start-1 col-span-2 place-self-start group-hover:bg-black group-hover:text-white"
+                data-textShuffleTarget
+              >
                 {name}
               </span>
-              <span class="col-start-3 col-span-2" data-textShuffleTarget>
+              <span
+                class="col-start-3 col-span-2 place-self-start group-hover:bg-black group-hover:text-white"
+                data-textShuffleTarget
+              >
                 {at}
               </span>
-              <span class="col-start-5 col-span-2" data-textShuffleTarget>
+              <span
+                class="col-start-5 col-span-2 place-self-start group-hover:bg-black group-hover:text-white"
+                data-textShuffleTarget
+              >
                 {project}
               </span>
               <ListImage imagePath={imagePath} alt={name} />

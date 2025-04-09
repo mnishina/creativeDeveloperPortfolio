@@ -15,17 +15,26 @@ import { projects } from "~/db";
               <a
                 href={projectURL}
                 target="_blank"
-                class="grid grid-cols-12 gap-gridGap py-8"
+                class="grid grid-cols-12 gap-gridGap py-8 group"
                 data-element="link"
                 data-imagePath={projectImagePath}
               >
-                <span class="col-start-1 col-span-2" data-textShuffleTarget>
+                <span
+                  class="col-start-1 col-span-2 place-self-start group-hover:bg-black group-hover:text-white"
+                  data-textShuffleTarget
+                >
                   {projectYear}
                 </span>
-                <span class="col-start-3 col-span-2" data-textShuffleTarget>
+                <span
+                  class="col-start-3 col-span-2 place-self-start group-hover:bg-black group-hover:text-white"
+                  data-textShuffleTarget
+                >
                   {projectName}
                 </span>
-                <span class="col-start-5 col-span-full" data-textShuffleTarget>
+                <span
+                  class="col-start-5 col-span-2 place-self-start group-hover:bg-black group-hover:text-white"
+                  data-textShuffleTarget
+                >
                   {projectURL}
                 </span>
                 <ListImage imagePath={projectImagePath} alt={projectName} />
