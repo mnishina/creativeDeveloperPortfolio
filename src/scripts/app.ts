@@ -174,8 +174,6 @@ function _onLinkEnter(
 }
 
 function _onListEnter() {
-  // console.log("enter list", app.state.isMeshVisible);
-
   if (!app.state.isMeshVisible && app.meshStore.material) {
     gsap.to(app.meshStore.material.uniforms.uAlpha, {
       value: 1,
@@ -199,8 +197,6 @@ function _onListEnter() {
   app.state.isMeshVisible = true;
 }
 function _onListLeave() {
-  // console.log("leave list ", app.state.isMeshVisible);
-
   if (app.state.isMeshVisible && app.meshStore.material) {
     gsap.to(app.meshStore.material.uniforms.uAlpha, {
       value: 0,
