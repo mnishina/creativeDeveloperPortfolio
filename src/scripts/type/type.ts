@@ -15,6 +15,7 @@ interface $ {
   $canvas: Element | null;
   $images: NodeListOf<Element>;
   $links: NodeListOf<Element>;
+  $list: NodeListOf<Element>;
 }
 
 interface CompositionObjects {
@@ -37,10 +38,19 @@ interface MeshStore {
 
 interface Uniforms {
   [key: string]: {
-    value: Texture | null;
+    value: Texture | number | null;
   };
   uTexture: {
     value: Texture | null;
+  };
+  uAlpha: {
+    value: number | null;
+  };
+  uMosaicProgress: {
+    value: number | null;
+  };
+  uProgress: {
+    value: number | null;
   };
 }
 
@@ -54,6 +64,7 @@ interface App {
   $canvas: Element | null;
   $images: NodeListOf<Element>;
   $links: NodeListOf<Element>;
+  $list: NodeListOf<Element>;
   event: {
     timeoutID: number | null;
     RESIZE_TIME: number;
@@ -62,6 +73,9 @@ interface App {
     segmentAmount: number;
   };
   meshStore: MeshStore;
+  state: {
+    isMeshVisible: boolean;
+  };
 
   init: () => $;
   createMesh: (compositionObjects: CompositionObjects) => void;

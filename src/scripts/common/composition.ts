@@ -11,8 +11,8 @@ const composition: Composition = {
   cameraInfo: {
     fov: undefined,
     aspect: undefined,
-    near: 1,
-    far: 10,
+    near: 0.1,
+    far: 1000,
   },
 
   init,

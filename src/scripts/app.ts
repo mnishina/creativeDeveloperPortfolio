@@ -6,7 +6,8 @@ import type {
   Uniforms,
 } from "~scripts/type/type";
 
-import { PlaneGeometry, ShaderMaterial, Mesh, Texture } from "three";
+import { PlaneGeometry, ShaderMaterial, Mesh } from "three";
+import { gsap } from "gsap";
 
 import composition from "~scripts/common/composition";
 import util from "~scripts/common/util";
@@ -18,6 +19,7 @@ const app: App = {
   $canvas: document.querySelector("[data-element='canvas']"),
   $images: document.querySelectorAll("[data-element='image']"),
   $links: document.querySelectorAll("[data-element='link']"),
+  $list: document.querySelectorAll('[data-element="list"]'),
   event: {
     timeoutID: null,
     RESIZE_TIME: 300,
@@ -29,6 +31,9 @@ const app: App = {
     geometry: null,
     material: null,
     mesh: null,
+  },
+  state: {
+    isMeshVisible: false,
   },
 
   init,
@@ -42,6 +47,7 @@ function init() {
     $canvas: app.$canvas,
     $images: app.$images,
     $links: app.$links,
+    $list: app.$list,
   };
 
   return $;
@@ -52,6 +58,9 @@ function createMesh(compositionObjects: CompositionObjects) {
 
   const uniforms: Uniforms = {
     uTexture: { value: null },
+    uAlpha: { value: 0 },
+    uMosaicProgress: { value: 0 },
+    uProgress: { value: 0 },
   };
 
   const geometry = new PlaneGeometry(
@@ -80,16 +89,31 @@ function setupEvents(
   compositionObjects: CompositionObjects,
   imageStore: Map<string, ImageStoreValue>,
 ) {
-  window.addEventListener("resize", () => _onResize($, compositionObjects));
-
   $.$links.forEach(($link) => {
     // リンクからdataImage属性を取得
     const dataImagePath = $link.getAttribute("data-imagePath");
 
-    const mouseEnterHandler = () =>
-      _onMouseEnter($link, dataImagePath!, imageStore);
-    $link.addEventListener("mouseenter", mouseEnterHandler);
+    const linkEnterHandler = () =>
+      _onLinkEnter($link, dataImagePath!, imageStore);
+    $link.addEventListener("mouseenter", linkEnterHandler);
   });
+
+  $.$list.forEach(($list) => {
+    $list.addEventListener("mouseenter", () => _onListEnter());
+  });
+  $.$list.forEach(($list) => {
+    $list.addEventListener("mouseleave", () => _onListLeave());
+  });
+
+  // window.addEventListener("mousemove", (event) => {
+  //   const { $canvas } = $;
+  //   if (!$canvas) return;
+  //   const $canvasBounds = util.getCanvasBounds($canvas);
+
+  //   _onMouseMove(event, $canvasBounds.width, $canvasBounds.height);
+  // });
+
+  window.addEventListener("resize", () => _onResize($, compositionObjects));
 }
 
 function render(compositionObjects: CompositionObjects) {
@@ -135,7 +159,7 @@ function _onResize($: $, compositionObjects: CompositionObjects) {
   }, app.event.RESIZE_TIME);
 }
 
-function _onMouseEnter(
+function _onLinkEnter(
   $link: Element,
   dataImagePath: string,
   imageStore: Map<string, ImageStoreValue>,
@@ -143,10 +167,68 @@ function _onMouseEnter(
   imageStore.forEach((value, key) => {
     if (dataImagePath === key) {
       if (!app.meshStore.material || !app.meshStore.mesh) return;
-      // app.meshStore.material.uniforms.uTexture.value = value.texture;
+      app.meshStore.material.uniforms.uTexture.value = value.texture;
       app.meshStore.mesh.scale.set(value.width, value.height, 0);
     }
   });
+}
+
+function _onListEnter() {
+  if (!app.state.isMeshVisible && app.meshStore.material) {
+    gsap.to(app.meshStore.material.uniforms.uAlpha, {
+      value: 1,
+      duration: 0.2,
+      ease: "power4.out",
+    });
+
+    gsap.to(app.meshStore.material.uniforms.uMosaicProgress, {
+      value: 1,
+      duration: 1.2,
+      ease: "power4.out",
+      // onUpdate: () => {
+      //   console.log(
+      //     "Progress:",
+      //     app.meshStore.material?.uniforms.uMosaicProgress.value,
+      //   );
+      // },
+    });
+  }
+
+  app.state.isMeshVisible = true;
+}
+function _onListLeave() {
+  if (app.state.isMeshVisible && app.meshStore.material) {
+    gsap.to(app.meshStore.material.uniforms.uAlpha, {
+      value: 0,
+      duration: 0.2,
+      ease: "power4.out",
+    });
+
+    gsap.to(app.meshStore.material.uniforms.uMosaicProgress, {
+      value: 0,
+      duration: 1.2,
+      ease: "power4.out",
+    });
+  }
+
+  app.state.isMeshVisible = false;
+}
+
+function _onMouseMove(
+  event: MouseEvent,
+  $canvasWidth: number,
+  $canvasHeight: number,
+) {
+  //マウス座標を-1~1に正規化
+  const mouseX = (event.clientX / $canvasWidth) * 2 - 1;
+  const mouseY = -(event.clientY / $canvasHeight) * 2 + 1;
+
+  const x = util.mapRange(mouseX, -1, 1, -$canvasWidth / 2, $canvasWidth / 2);
+  const y = util.mapRange(mouseY, -1, 1, -$canvasHeight / 2, $canvasHeight / 2);
+
+  if (!app.meshStore.mesh) return;
+
+  app.meshStore.mesh?.position.set(x, y, 0);
 }
 
 export default app;
