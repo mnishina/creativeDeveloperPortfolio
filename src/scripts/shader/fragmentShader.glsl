@@ -7,7 +7,7 @@ uniform float uMosaicProgress;
 void main() {
 
   vec4 tex = texture2D(uTexture, vUv);
-  gl_FragColor = vec4(tex.rgb, 0.0);
+  gl_FragColor = vec4(tex.rgb, uAlpha);
 
   // // モザイクのピクセルサイズを調整（uMosaicProgress=0で強いモザイク、uMosaicProgress=1で元画像）
   // float pixelSize = max(0.0025, 0.1 * (1.0 - uMosaicProgress));
