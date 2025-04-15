@@ -72,7 +72,7 @@ const awards = [
     name: "STAR",
     at: "CSS Winner",
     url: "https://www.csswinner.com/details/ramen2024/18512",
-    imagePath: "/bestInnovation_ramen2024.avif",
+    imagePath: "/star_ramen2024.avif",
   },
   {
     year: "2024",
