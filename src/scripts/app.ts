@@ -170,7 +170,8 @@ function _onLinkEnter(
       if (!app.meshStore.material || !app.meshStore.mesh) return;
 
       // 現在のテクスチャを保存
-      // const currentTexture = app.meshStore.material.uniforms.uTextureCurrent.value;
+      const currentTexture =
+        app.meshStore.material.uniforms.uTextureCurrent.value;
 
       app.meshStore.material.uniforms.uTexture.value = value.texture;
       app.meshStore.mesh.scale.set(value.width, value.height, 0);
