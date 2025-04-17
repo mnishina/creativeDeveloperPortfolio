@@ -46,6 +46,9 @@ interface Uniforms {
   uTextureCurrent: {
     value: Texture | null;
   };
+  uTextureNew: {
+    value: Texture | null;
+  };
   uAlpha: {
     value: number | null;
   };

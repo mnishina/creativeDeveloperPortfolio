@@ -59,6 +59,7 @@ function createMesh(compositionObjects: CompositionObjects) {
   const uniforms: Uniforms = {
     uTexture: { value: null },
     uTextureCurrent: { value: null },
+    uTextureNew: { value: null },
     uAlpha: { value: 0 },
     uMosaicProgress: { value: 0 },
     uProgress: { value: 0 },
