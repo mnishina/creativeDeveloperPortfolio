@@ -174,7 +174,8 @@ function _onLinkEnter(
       const currentTexture =
         app.meshStore.material.uniforms.uTextureCurrent.value;
 
-      app.meshStore.material.uniforms.uTexture.value = value.texture;
+      // 新しいテクスチャを設定
+      app.meshStore.material.uniforms.uTextureNew.value = value.texture;
       app.meshStore.mesh.scale.set(value.width, value.height, 0);
     }
   });
