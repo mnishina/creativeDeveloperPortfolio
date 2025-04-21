@@ -107,13 +107,13 @@ function setupEvents(
     $list.addEventListener("mouseleave", () => _onListLeave());
   });
 
-  // window.addEventListener("mousemove", (event) => {
-  //   const { $canvas } = $;
-  //   if (!$canvas) return;
-  //   const $canvasBounds = util.getCanvasBounds($canvas);
+  window.addEventListener("mousemove", (event) => {
+    const { $canvas } = $;
+    if (!$canvas) return;
+    const $canvasBounds = util.getCanvasBounds($canvas);
 
-  //   _onMouseMove(event, $canvasBounds.width, $canvasBounds.height);
-  // });
+    _onMouseMove(event, $canvasBounds.width, $canvasBounds.height);
+  });
 
   window.addEventListener("resize", () => _onResize($, compositionObjects));
 }
