@@ -167,9 +167,14 @@ function _onLinkEnter(
   imageStore: Map<string, ImageStoreValue>,
 ) {
   imageStore.forEach((value, key) => {
-    if (dataImagePath === key) {
-      if (!app.meshStore.material || !app.meshStore.mesh) return;
+    if (!app.meshStore.material || !app.meshStore.mesh) return;
 
+    if (!dataImagePath) {
+      app.meshStore.material.uniforms.uTextureNew.value = null;
+      app.meshStore.mesh.scale.set(0, 0, 0);
+    }
+
+    if (dataImagePath === key) {
       // 現在のテクスチャを保存
       const currentTexture =
         app.meshStore.material.uniforms.uTextureCurrent.value;
