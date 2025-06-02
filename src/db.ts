@@ -72,7 +72,7 @@ const awards = [
     name: "STAR",
     at: "CSS Winner",
     url: "https://www.csswinner.com/details/ramen2024/18512",
-    imagePath: "/bestInnovation_ramen2024.avif",
+    imagePath: "/star_ramen2024.avif",
   },
   {
     year: "2024",
@@ -80,7 +80,7 @@ const awards = [
     name: "STAR",
     at: "CSS Winner",
     url: "https://www.csswinner.com/details/ramen2023/17776",
-    imagePath: "/bestInnovation_ramen2024.avif",
+    imagePath: null,
   },
   {
     year: "2024",
@@ -88,7 +88,7 @@ const awards = [
     name: "Nominee",
     at: "AWWWARDS",
     url: "https://www.awwwards.com/sites/ramen2023",
-    imagePath: "/bestInnovation_ramen2024.avif",
+    imagePath: null,
   },
 ];
 

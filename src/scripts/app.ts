@@ -58,6 +58,8 @@ function createMesh(compositionObjects: CompositionObjects) {
 
   const uniforms: Uniforms = {
     uTexture: { value: null },
+    uTextureCurrent: { value: null },
+    uTextureNew: { value: null },
     uAlpha: { value: 0 },
     uMosaicProgress: { value: 0 },
     uProgress: { value: 0 },
@@ -105,13 +107,13 @@ function setupEvents(
     $list.addEventListener("mouseleave", () => _onListLeave());
   });
 
-  // window.addEventListener("mousemove", (event) => {
-  //   const { $canvas } = $;
-  //   if (!$canvas) return;
-  //   const $canvasBounds = util.getCanvasBounds($canvas);
+  window.addEventListener("mousemove", (event) => {
+    const { $canvas } = $;
+    if (!$canvas) return;
+    const $canvasBounds = util.getCanvasBounds($canvas);
 
-  //   _onMouseMove(event, $canvasBounds.width, $canvasBounds.height);
-  // });
+    _onMouseMove(event, $canvasBounds.width, $canvasBounds.height);
+  });
 
   window.addEventListener("resize", () => _onResize($, compositionObjects));
 }
@@ -165,15 +167,33 @@ function _onLinkEnter(
   imageStore: Map<string, ImageStoreValue>,
 ) {
   imageStore.forEach((value, key) => {
+    if (!app.meshStore.material || !app.meshStore.mesh) return;
+
+    if (!dataImagePath) {
+      app.meshStore.material.uniforms.uTextureNew.value = null;
+      app.meshStore.mesh.scale.set(0, 0, 0);
+    }
+
     if (dataImagePath === key) {
-      if (!app.meshStore.material || !app.meshStore.mesh) return;
-      app.meshStore.material.uniforms.uTexture.value = value.texture;
+      // 現在のテクスチャを保存
+      const currentTexture =
+        app.meshStore.material.uniforms.uTextureCurrent.value;
+
+      // 新しいテクスチャを設定
+      app.meshStore.material.uniforms.uTextureNew.value = value.texture;
       app.meshStore.mesh.scale.set(value.width, value.height, 0);
     }
   });
 }
 
+let isListEnter: Boolean = false;
+
 function _onListEnter() {
+  console.log("_onListEnter");
+
+  isListEnter = true;
+  canvasZpos(isListEnter);
+
   if (!app.state.isMeshVisible && app.meshStore.material) {
     gsap.to(app.meshStore.material.uniforms.uAlpha, {
       value: 1,
@@ -197,6 +217,11 @@ function _onListEnter() {
   app.state.isMeshVisible = true;
 }
 function _onListLeave() {
+  console.log("_onListLeave");
+
+  isListEnter = false;
+  canvasZpos(isListEnter);
+
   if (app.state.isMeshVisible && app.meshStore.material) {
     gsap.to(app.meshStore.material.uniforms.uAlpha, {
       value: 0,
@@ -229,6 +254,14 @@ function _onMouseMove(
   if (!app.meshStore.mesh) return;
 
   app.meshStore.mesh?.position.set(x, y, 0);
+}
+
+function canvasZpos(isListEnter: Boolean) {
+  if (isListEnter) {
+    app.$canvas?.classList.add("z-10");
+  } else {
+    app.$canvas?.classList.remove("z-10");
+  }
 }
 
 export default app;
