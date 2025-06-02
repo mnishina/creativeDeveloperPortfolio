@@ -186,7 +186,14 @@ function _onLinkEnter(
   });
 }
 
+let isListEnter: Boolean = false;
+
 function _onListEnter() {
+  console.log("_onListEnter");
+
+  isListEnter = true;
+  canvasZpos(isListEnter);
+
   if (!app.state.isMeshVisible && app.meshStore.material) {
     gsap.to(app.meshStore.material.uniforms.uAlpha, {
       value: 1,
@@ -210,6 +217,11 @@ function _onListEnter() {
   app.state.isMeshVisible = true;
 }
 function _onListLeave() {
+  console.log("_onListLeave");
+
+  isListEnter = false;
+  canvasZpos(isListEnter);
+
   if (app.state.isMeshVisible && app.meshStore.material) {
     gsap.to(app.meshStore.material.uniforms.uAlpha, {
       value: 0,
@@ -242,6 +254,14 @@ function _onMouseMove(
   if (!app.meshStore.mesh) return;
 
   app.meshStore.mesh?.position.set(x, y, 0);
+}
+
+function canvasZpos(isListEnter: Boolean) {
+  if (isListEnter) {
+    app.$canvas?.classList.add("z-10");
+  } else {
+    app.$canvas?.classList.remove("z-10");
+  }
 }
 
 export default app;
